@@ -3,38 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./rockPaperScissors.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="./rockPaperScissors.js" defer></script>
     <title>Rock Paper Scissors</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html {
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-      }
-
-      body {
-        height: 100vh;
-        background-color: black;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 32px;
-      }
-    </style>
   </head>
   <body>
-    <h1>PLAY WITH THE CONSOLE OPEN (F12)</h1>
-    <a
-      href="https://www.theodinproject.com/lessons/foundations-rock-paper-scissors#step-2-write-the-logic-to-get-the-computer-choice"
-      target="_blank"
-      rel="noopener noreferrer"
-      >LINK TO THE PROJECT ON TOP</a
-    >
+    <div class="content">
+      <div class="horizontal">
+        <div class="buttons">
+          <button id="rock">Rock</button>
+          <button id="paper">Paper</button>
+          <button id="scissors">Scissors</button>
+        </div>
+        <div class="game">
+          <div class="scores">
+            <div class="humanScore"></div>
+            <div class="roundCounter"></div>
+            <div class="computerScore"></div>
+          </div>
+          <div class="roundResult"></div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
