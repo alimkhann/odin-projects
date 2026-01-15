@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+button {
+  width: 120px;
+  padding: 12px;
+}
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 960px;
+}
+
+.square {
+  background-color: black;
+  border: 1px solid white;
+  transition: background-color 0.3s ease;
+}
