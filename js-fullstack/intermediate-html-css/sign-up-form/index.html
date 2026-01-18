@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <title>Sign Up Form</title>
+  </head>
+  <body>
+    <div class="bg-img-container">
+      <img
+        class="bg-img"
+        src="/assets/tim-broadbent-LixxrHI7H8o-unsplash.jpg"
+        alt="background image of a walkable bridge in Astana"
+      />
+      <div class="bg-img-credit">
+        Photo by
+        <a
+          href="https://unsplash.com/@timbrofrance"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Tim Broadbent
+        </a>
+        on
+        <a
+          href="https://unsplash.com/photos/a-large-building-with-a-very-long-roof-LixxrHI7H8o"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Unsplash
+        </a>
+      </div>
+    </div>
+
+    <main>
+      <div class="theme-dropdown">
+        <button
+          id="theme-icon-btn"
+          aria-label="Switch Theme"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <img
+            class="icon"
+            id="theme-icon"
+            src="/assets/system-theme-icon.svg"
+            alt="theme icon"
+          />
+        </button>
+
+        <ul id="theme-menu">
+          <li>
+            <button data-theme="light">
+              <img
+                class="icon"
+                src="/assets/light-theme-icon.svg"
+                alt="light theme icon"
+              />
+              Light
+            </button>
+          </li>
+          <li>
+            <button data-theme="dark">
+              <img
+                class="icon"
+                src="/assets/dark-theme-icon.svg"
+                alt="dark theme icon"
+              />
+              Dark
+            </button>
+          </li>
+          <li>
+            <button data-theme="system">
+              <img
+                class="icon"
+                src="/assets/system-theme-icon.svg"
+                alt="system default theme icon"
+              />
+              System
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="form">
+        <h1>Sign Up</h1>
+      </div>
+    </main>
+  </body>
+</html>
