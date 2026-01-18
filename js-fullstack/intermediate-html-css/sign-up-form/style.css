@@ -122,6 +122,17 @@ body {
   flex-shrink: 0;
   position: relative;
   padding: 1rem;
+  border-radius: 2rem;
+  overflow: hidden;
+}
+
+.logo {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: clamp(96px, 10vw, 160px);
+  height: auto;
+  z-index: 20;
 }
 
 .bg-img {
@@ -129,16 +140,63 @@ body {
   height: calc(100vh - 2rem);
   object-fit: cover;
   object-position: 20%;
-  /* border-radius: 0 2rem 2rem 0; */
   border-radius: 2rem;
 }
 
-.bg-img-credit {
+.hero-overlay {
   position: absolute;
-  bottom: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  width: auto;
+  padding: 4.5rem 3rem 2.5rem 3rem;
+  z-index: 10;
+  border-radius: 0rem 0rem 2rem 2rem;
+
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 0rem 0rem 2rem 2rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.65) 10%,
+    rgba(0, 0, 0, 0.35) 50%,
+    transparent 100%
+  );
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  -webkit-mask-image: linear-gradient(to top, black 50%, transparent 100%);
+  mask-image: linear-gradient(to top, black 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-overlay h2 {
+  font-size: clamp(2.5rem, 3vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.hero-overlay p {
+  font-size: clamp(1.1rem, 1.2vw, 1.35rem);
+  opacity: 0.9;
+  max-width: 48ch;
+}
+
+.bg-img-credit {
+  margin-top: 1rem;
   font-size: 0.8rem;
+  opacity: 0.5;
   color: white;
 }
 
