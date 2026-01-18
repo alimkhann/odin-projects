@@ -33,6 +33,20 @@ window.addEventListener("click", () => {
   themeSwitchBtn.setAttribute("aria-expanded", "false");
 });
 
+const passwordFields = document.querySelectorAll("#password, #repeat-password");
+
+passwordFields.forEach((field) => {
+  field.addEventListener("blur", () => {
+    field.classList.add("touched");
+  });
+
+  field.addEventListener("input", () => {
+    if (field.validity.valid) {
+      field.classList.remove("touched");
+    }
+  });
+});
+
 function updateThemeIcon(theme) {
   const themeIcon = document.getElementById("theme-icon");
   if (!themeIcon) return;
