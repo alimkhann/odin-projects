@@ -237,7 +237,7 @@ caption {
 
 [data-theme="dark"] .sidebar img:not([src*="logo_light.png"]),
 [data-theme="dark"] .header img,
-:root:not([data-theme]) .project-actions img,
+[data-theme="dark"] .project-actions img,
 [data-theme="dark"] .trending img {
   filter: invert(1);
 }
@@ -247,6 +247,16 @@ caption {
   :root:not([data-theme]) .header img,
   :root:not([data-theme]) .project-actions img,
   :root:not([data-theme]) .trending img {
+    filter: invert(1);
+  }
+}
+
+[data-theme="light"] img[src*="logo_light.png"] {
+  filter: invert(1);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) img[src*="logo_light.png"] {
     filter: invert(1);
   }
 }
@@ -286,6 +296,15 @@ span {
 .header-top button:not(.btn-primary),
 .project-actions button {
   background-color: transparent;
+}
+
+.header-top button:not(.btn-primary) {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
 }
 
 .card,
@@ -421,7 +440,7 @@ img[src*="logo_light.png"] {
   }
 
   .header-top {
-    grid-template-columns: 2fr auto auto;
+    grid-template-columns: 2fr auto auto auto;
     gap: 0.75rem;
   }
 
@@ -449,6 +468,67 @@ img[src*="logo_light.png"] {
   .search-bar input {
     width: 100%;
     padding-left: 2.25rem;
+  }
+
+  .theme-dropdown {
+    position: relative;
+  }
+
+  #theme-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: transparent;
+  }
+
+  #theme-icon-btn:hover {
+    background-color: var(--bg-subtle);
+  }
+
+  #theme-icon-btn img {
+    width: 18px;
+    height: 18px;
+  }
+
+  #theme-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.4rem);
+    right: 0;
+    width: max-content;
+    padding: 0.35rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 0.5rem;
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    z-index: 10;
+  }
+
+  #theme-menu.show {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  #theme-menu button {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.4rem 0.5rem;
+    border-radius: 0.4rem;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+  }
+
+  #theme-menu button:hover {
+    background-color: var(--bg-subtle);
   }
 
   .header-bottom {

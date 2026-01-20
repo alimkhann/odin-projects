@@ -93,6 +93,37 @@
           <button type="button" aria-label="Notifications">
             <img src="/assets/icons/bell.svg" alt="" />
           </button>
+          <div class="theme-dropdown">
+            <button
+              id="theme-icon-btn"
+              type="button"
+              aria-label="Switch theme"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img id="theme-icon" src="/assets/icons/sun-moon.svg" alt="" />
+            </button>
+            <ul id="theme-menu" role="menu" aria-label="Theme">
+              <li>
+                <button type="button" data-theme="light" role="menuitem">
+                  <img src="/assets/icons/sun.svg" alt="" />
+                  Light
+                </button>
+              </li>
+              <li>
+                <button type="button" data-theme="dark" role="menuitem">
+                  <img src="/assets/icons/moon.svg" alt="" />
+                  Dark
+                </button>
+              </li>
+              <li>
+                <button type="button" data-theme="system" role="menuitem">
+                  <img src="/assets/icons/sun-moon.svg" alt="" />
+                  System
+                </button>
+              </li>
+            </ul>
+          </div>
           <div class="header-user">
             <img
               class="pfp"
