@@ -9,11 +9,10 @@
   </head>
   <body>
     <aside class="sidebar">
-      <div class="sidebar-logo-name">
-        <img src="" alt="Site logo" />
-        <h1>Dashboard</h1>
+      <div class="sidebar-logo-name-toggle">
+        <img src="/assets/logo_light.png" alt="Site logo" />
         <button type="button" aria-label="Toggle sidebar">
-          <img src="" alt="" />
+          <img src="/assets/icons/panel-left-close.svg" alt="close sidebar" />
         </button>
       </div>
       <nav class="sidebar-actions" aria-label="Primary">
@@ -94,12 +93,22 @@
           <button type="button" aria-label="Notifications">
             <img src="/assets/icons/bell.svg" alt="" />
           </button>
-          <img class="pfp" src="" alt="Morgan Oakley profile picture" />
-          <h3 class="text-primary">Morgan Oakley</h3>
+          <div class="header-user">
+            <img
+              class="pfp"
+              src="/assets/icons/circle-user-round.svg"
+              alt="Morgan Oakley profile picture"
+            />
+            <h3 class="text-primary">Morgan Oakley</h3>
+          </div>
         </div>
         <div class="header-bottom">
           <div class="hi-user">
-            <img class="pfp" src="" alt="Morgan Oakley profile picture" />
+            <img
+              class="pfp"
+              src="/assets/icons/circle-user-round.svg"
+              alt="Morgan Oakley profile picture"
+            />
             <div class="hi-user-text">
               <p>Hi there,</p>
               <h2 class="text-primary">Morgan Oakley (@morgan)</h2>
@@ -230,65 +239,72 @@
             </article>
           </div>
         </section>
-        <section class="announcements" aria-labelledby="announcements-title">
-          <h2 id="announcements-title">Announcements</h2>
-          <article class="announcement">
-            <h3>Site Maintenance</h3>
-            <p>
-              Vestibulum condimentum tellus lacus, in accumsan elit maximus ac.
-              Donec hendrerit sodales congue...
-            </p>
-          </article>
-          <hr />
-          <article class="announcement">
-            <h3>Community Share Day</h3>
-            <p>
-              Nam vel lectus tincidunt, rutrum nulla eu, ornare libero. Aliquam
-              dictum accumsan porttitor...
-            </p>
-          </article>
-          <hr />
-          <article class="announcement">
-            <h3>Updated Privacy Policy</h3>
-            <p>
-              Phasellus efficitur nisi eget elit consectetur, eget condimentum
-              ante auctor. Cras fringilla sagittis sem in mattis...
-            </p>
-          </article>
-        </section>
-        <section class="trending" aria-labelledby="trending-title">
-          <h2 id="trending-title">Trending</h2>
-          <ul class="trending-list">
-            <li class="user">
-              <img src="/assets/icons/circle-user-round.svg" alt="" />
-              <div class="user-text">
-                <p class="user-handle">@tegan</p>
-                <p>World Peace Builder</p>
-              </div>
-            </li>
-            <li class="user">
-              <img src="/assets/icons/circle-user-round.svg" alt="" />
-              <div class="user-text">
-                <p class="user-handle">@morgan</p>
-                <p>Super Cool Project</p>
-              </div>
-            </li>
-            <li class="user">
-              <img src="/assets/icons/circle-user-round.svg" alt="" />
-              <div class="user-text">
-                <p class="user-handle">@kendall</p>
-                <p>Life Changing App</p>
-              </div>
-            </li>
-            <li class="user">
-              <img src="/assets/icons/circle-user-round.svg" alt="" />
-              <div class="user-text">
-                <p class="user-handle">@alex</p>
-                <p>No Traffic Maker</p>
-              </div>
-            </li>
-          </ul>
-        </section>
+        <div class="side-panel">
+          <section class="announcements" aria-labelledby="announcements-title">
+            <h2 id="announcements-title">Announcements</h2>
+            <div class="announcement-articles">
+              <article class="announcement">
+                <h3>Site Maintenance</h3>
+                <p>
+                  Vestibulum condimentum tellus lacus, in accumsan elit maximus
+                  ac. Donec hendrerit sodales congue...
+                </p>
+                <hr />
+              </article>
+              <article class="announcement">
+                <h3>Community Share Day</h3>
+                <p>
+                  Nam vel lectus tincidunt, rutrum nulla eu, ornare libero.
+                  Aliquam dictum accumsan porttitor...
+                </p>
+                <hr />
+              </article>
+              <article class="announcement">
+                <h3>Updated Privacy Policy</h3>
+                <p>
+                  Phasellus efficitur nisi eget elit consectetur, eget
+                  condimentum ante auctor. Cras fringilla sagittis sem in
+                  mattis...
+                </p>
+              </article>
+            </div>
+          </section>
+          <section class="trending" aria-labelledby="trending-title">
+            <h2 id="trending-title">Trending</h2>
+            <div class="trending-users">
+              <ul class="trending-list">
+                <li class="user">
+                  <img src="/assets/icons/circle-user-round.svg" alt="" />
+                  <div class="user-text">
+                    <p class="user-handle">@tegan</p>
+                    <p>World Peace Builder</p>
+                  </div>
+                </li>
+                <li class="user">
+                  <img src="/assets/icons/circle-user-round.svg" alt="" />
+                  <div class="user-text">
+                    <p class="user-handle">@morgan</p>
+                    <p>Super Cool Project</p>
+                  </div>
+                </li>
+                <li class="user">
+                  <img src="/assets/icons/circle-user-round.svg" alt="" />
+                  <div class="user-text">
+                    <p class="user-handle">@kendall</p>
+                    <p>Life Changing App</p>
+                  </div>
+                </li>
+                <li class="user">
+                  <img src="/assets/icons/circle-user-round.svg" alt="" />
+                  <div class="user-text">
+                    <p class="user-handle">@alex</p>
+                    <p>No Traffic Maker</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
       </div>
     </main>
   </body>
