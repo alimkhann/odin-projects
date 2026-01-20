@@ -413,7 +413,10 @@ img[src*="logo_light.png"] {
   gap: 1.25rem;
   padding: 1rem 0.75rem;
   width: 300px;
-  transition: width 180ms ease, padding 180ms ease, gap 180ms ease;
+  transition:
+    width 180ms ease,
+    padding 180ms ease,
+    gap 180ms ease;
 
   .sidebar-logo-name-toggle {
     display: flex;
@@ -464,14 +467,18 @@ img[src*="logo_light.png"] {
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
     color: inherit;
-    transition: padding 180ms ease, gap 180ms ease;
+    transition:
+      padding 180ms ease,
+      gap 180ms ease;
   }
 
   a span {
     color: inherit;
     overflow: hidden;
     max-width: 200px;
-    transition: opacity 180ms ease, max-width 180ms ease;
+    transition:
+      opacity 180ms ease,
+      max-width 180ms ease;
   }
 
   a:hover {
