@@ -188,8 +188,8 @@ caption {
 }
 
 [data-theme="dark"] {
-  --bg-body: var(--zinc-950);
-  --bg-surface: var(--zinc-900);
+  --bg-body: #090909;
+  --bg-surface: #101010;
   --bg-subtle: var(--zinc-800);
 
   --border-subtle: var(--zinc-800);
@@ -216,8 +216,8 @@ caption {
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg-body: var(--zinc-950);
-    --bg-surface: var(--zinc-900);
+    --bg-body: #090909;
+    --bg-surface: #101010;
     --bg-subtle: var(--zinc-800);
 
     --border-subtle: var(--zinc-800);
@@ -325,9 +325,12 @@ span {
 .announcement-articles,
 .trending-users,
 .header {
-  background-color: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: 0.25rem;
+}
+
+.header {
+  background-color: var(--bg-surface);
 }
 
 .btn-primary {
