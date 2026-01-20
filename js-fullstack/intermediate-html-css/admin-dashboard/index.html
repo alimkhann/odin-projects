@@ -8,14 +8,24 @@
     <title>Admin Dashboard</title>
   </head>
   <body>
-    <aside class="sidebar">
+    <aside class="sidebar" aria-label="Sidebar">
       <div class="sidebar-logo-name-toggle">
-        <img src="/assets/logo_light.png" alt="Site logo" />
-        <button type="button" aria-label="Toggle sidebar">
-          <img src="/assets/icons/panel-left-close.svg" alt="close sidebar" />
+        <img id="sidebar-logo" src="/assets/logo_light.png" alt="Site logo" />
+        <button
+          id="sidebar-toggle"
+          type="button"
+          aria-label="Collapse sidebar"
+          aria-expanded="true"
+          aria-controls="sidebar-nav"
+        >
+          <img
+            id="sidebar-toggle-icon"
+            src="/assets/icons/panel-left-close.svg"
+            alt=""
+          />
         </button>
       </div>
-      <nav class="sidebar-actions" aria-label="Primary">
+      <nav id="sidebar-nav" class="sidebar-actions" aria-label="Primary">
         <div class="sidebar-section-top">
           <ul>
             <li>

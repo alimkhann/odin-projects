@@ -391,8 +391,13 @@ select:-webkit-autofill {
 body {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: auto 1fr;
   grid-template-rows: 100vh;
+  transition: grid-template-columns 180ms ease;
+}
+
+body.sidebar-collapsed {
+  grid-template-columns: auto 1fr;
 }
 
 /* SIDEBAR */
@@ -405,12 +410,40 @@ img[src*="logo_light.png"] {
 .sidebar {
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 2rem;
-  padding: 1.5rem;
+  gap: 1.25rem;
+  padding: 1rem 0.75rem;
+  width: 300px;
+  transition: width 180ms ease, padding 180ms ease, gap 180ms ease;
 
   .sidebar-logo-name-toggle {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  #sidebar-logo {
+    transition: opacity 180ms ease;
+  }
+
+  .sidebar-logo-name-toggle button {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    opacity: 1;
+    transition: opacity 180ms ease;
+  }
+
+  #sidebar-toggle {
+    z-index: 1;
+  }
+
+  .sidebar-logo-name-toggle button:hover {
+    background-color: var(--bg-subtle);
   }
 
   ul {
@@ -431,10 +464,14 @@ img[src*="logo_light.png"] {
     padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
     color: inherit;
+    transition: padding 180ms ease, gap 180ms ease;
   }
 
   a span {
     color: inherit;
+    overflow: hidden;
+    max-width: 200px;
+    transition: opacity 180ms ease, max-width 180ms ease;
   }
 
   a:hover {
@@ -454,6 +491,55 @@ img[src*="logo_light.png"] {
   .sidebar-section-bottom {
     align-self: end;
   }
+}
+
+body.sidebar-collapsed #sidebar-logo {
+  cursor: pointer;
+}
+
+body.sidebar-collapsed .sidebar {
+  width: 88px;
+}
+
+body.sidebar-collapsed .sidebar-logo-name-toggle button {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition-delay: 120ms;
+}
+
+body.sidebar-collapsed .sidebar-logo-name-toggle #sidebar-logo {
+  opacity: 1;
+  transition-delay: 0ms;
+}
+
+body.sidebar-collapsed .sidebar-logo-name-toggle:hover button {
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 120ms;
+}
+
+body.sidebar-collapsed .sidebar-logo-name-toggle:hover #sidebar-logo {
+  opacity: 0;
+  transition-delay: 0ms;
+}
+
+body:not(.sidebar-collapsed) #sidebar-toggle {
+  opacity: 0;
+}
+
+body.sidebar-collapsed .sidebar a {
+  grid-template-columns: 24px;
+  gap: 0;
+  padding-left: calc(50% - 12px);
+  padding-right: 0;
+}
+
+body.sidebar-collapsed .sidebar a span {
+  opacity: 0;
+  max-width: 0;
 }
 
 /* HEADER */
