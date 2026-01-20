@@ -295,16 +295,24 @@ span {
 
 .header-top button:not(.btn-primary),
 .project-actions button {
-  background-color: transparent;
-}
-
-.header-top button:not(.btn-primary) {
   width: 32px;
   height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 0.5rem;
+  background-color: transparent;
+}
+
+.header-top button:not(.btn-primary):hover,
+.project-actions button:hover {
+  background-color: var(--bg-subtle);
+}
+
+.header-top button:not(.btn-primary) img,
+.project-actions button img {
+  width: 18px;
+  height: 18px;
 }
 
 .card,
