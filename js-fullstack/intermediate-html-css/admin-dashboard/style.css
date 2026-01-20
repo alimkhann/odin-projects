@@ -1,0 +1,318 @@
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
+
+button {
+  border: none;
+}
+
+li {
+  list-style: none;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+/* Main Page Title (e.g., "Overview", "Settings") */
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Card/Widget Titles */
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Section subsections / Key Data Metrics */
+
+h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Column Headers (often Uppercase + Bold) */
+
+h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+/* Standard data tables, logs, standard text */
+
+p,
+li,
+input,
+table {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Meta text, timestamps, footnotes */
+
+small,
+caption {
+  font-size: 0.75rem;
+}
+
+:root {
+  /* Base neutrals (already have these) */
+  --zinc-50: oklch(98.5% 0 0);
+  --zinc-100: oklch(96.7% 0.001 286.375);
+  --zinc-200: oklch(92% 0.004 286.32);
+  --zinc-300: oklch(87.1% 0.006 286.286);
+  --zinc-400: oklch(70.5% 0.015 286.067);
+  --zinc-500: oklch(55.2% 0.016 285.938);
+  --zinc-600: oklch(44.2% 0.017 285.786);
+  --zinc-700: oklch(37% 0.013 285.805);
+  --zinc-800: oklch(27.4% 0.006 286.033);
+  --zinc-900: oklch(21% 0.006 285.885);
+  --zinc-950: oklch(14.077% 0.0044 285.776);
+
+  /* Background / surfaces (light theme) */
+  --bg-body: var(--zinc-100);
+  --bg-surface: var(--zinc-50); /* cards, panels */
+  --bg-subtle: var(--zinc-200); /* subtle section backgrounds */
+
+  /* Borders */
+  --border-subtle: var(--zinc-200);
+  --border-strong: var(--zinc-300);
+
+  /* Text */
+  --text-primary: var(--zinc-900);
+  --text-secondary: var(--zinc-600);
+  --text-muted: var(--zinc-500);
+
+  --text-link: var(--text-primary);
+
+  /* Interactive (outline / focus / active) */
+  --outline: var(--zinc-400); /* focus rings */
+  --button-bg: var(--zinc-900); /* primary button */
+  --button-bg-hover: var(--zinc-800);
+  --button-text: var(--zinc-50);
+
+  /* Subtle button / chips */
+  --chip-bg: var(--zinc-200);
+  --chip-text: var(--zinc-800);
+}
+
+[data-theme="dark"] {
+  --bg-body: var(--zinc-900);
+  --bg-surface: var(--zinc-950);
+  --bg-subtle: var(--zinc-800);
+
+  --border-subtle: var(--zinc-800);
+  --border-strong: var(--zinc-700);
+
+  --text-primary: var(--zinc-50);
+  --text-secondary: var(--zinc-300);
+  --text-muted: var(--zinc-400);
+
+  --text-link: var(--text-primary);
+
+  --outline: var(--zinc-500);
+  --button-bg: var(--zinc-50);
+  --button-bg-hover: var(--zinc-200);
+  --button-text: var(--zinc-900);
+
+  --chip-bg: var(--zinc-800);
+  --chip-text: var(--zinc-50);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg-body: var(--zinc-900);
+    --bg-surface: var(--zinc-950);
+    --bg-subtle: var(--zinc-800);
+
+    --border-subtle: var(--zinc-800);
+    --border-strong: var(--zinc-700);
+
+    --text-primary: var(--zinc-50);
+    --text-secondary: var(--zinc-300);
+    --text-muted: var(--zinc-400);
+
+    --outline: var(--zinc-500);
+    --button-bg: var(--zinc-50);
+    --button-bg-hover: var(--zinc-200);
+    --button-text: var(--zinc-900);
+
+    --chip-bg: var(--zinc-800);
+    --chip-text: var(--zinc-50);
+  }
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+html {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+}
+
+/* COLORS */
+
+.sidebar {
+  background-color: var(--bg-surface);
+  border-right: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-primary {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-primary:focus,
+.btn-ghost:focus {
+  outline: 2px solid var(--outline);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+/* LAYOUT */
+
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  min-height: 100vh;
+
+  .sidebar-logo-name {
+    margin-bottom: 4rem;
+  }
+
+  .sidebar-actions {
+    display: flex;
+    flex-direction: column;
+  }
+
+  li {
+    font-weight: 600;
+  }
+}
+
+/* HEADER */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* MAIN */
+
+.main {
+  padding: 1rem;
+}

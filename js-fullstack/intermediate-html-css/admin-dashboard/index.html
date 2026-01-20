@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="/script.js" defer></script>
+    <title>Admin Dashboard</title>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="sidebar-logo-name">
+        <img src="" alt="Site logo" />
+        <h1>Dashboard</h1>
+        <button type="button" aria-label="Toggle sidebar">
+          <img src="" alt="" />
+        </button>
+      </div>
+      <nav class="sidebar-actions" aria-label="Primary">
+        <div class="sidebar-section-top">
+          <ul>
+            <li>
+              <a href="#">
+                <img src="/assets/icons/house.svg" alt="" />
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="/assets/icons/message-circle.svg" alt="" />
+                <span>Messages</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="/assets/icons/history.svg" alt="" />
+                <span>History</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="/assets/icons/clipboard-list.svg" alt="" />
+                <span>Tasks</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="/assets/icons/users.svg" alt="" />
+                <span>Communities</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="sidebar-section-bottom">
+          <ul>
+            <li>
+              <a href="#">
+                <img src="/assets/icons/settings.svg" alt="" />
+                <span>Settings</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img
+                  src="/assets/icons/message-circle-question-mark.svg"
+                  alt=""
+                />
+                <span>Support</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <img src="/assets/icons/shield-user.svg" alt="" />
+                <span>Privacy</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+    <main class="main">
+      <header class="header">
+        <div class="header-top">
+          <form class="search-bar" role="search">
+            <label class="sr-only" for="search-bar">Search</label>
+            <img src="/assets/icons/search.svg" alt="" />
+            <input
+              type="text"
+              name="search-bar"
+              id="search-bar"
+              placeholder="Search..."
+            />
+          </form>
+          <button type="button" aria-label="Notifications">
+            <img src="/assets/icons/bell.svg" alt="" />
+          </button>
+          <img class="pfp" src="" alt="Morgan Oakley profile picture" />
+          <h3 class="text-primary">Morgan Oakley</h3>
+        </div>
+        <div class="header-bottom">
+          <div class="hi-user">
+            <img class="pfp" src="" alt="Morgan Oakley profile picture" />
+            <div class="hi-user-text">
+              <p>Hi there,</p>
+              <h2 class="text-primary">Morgan Oakley (@morgan)</h2>
+            </div>
+          </div>
+          <div class="header-bottom-btns">
+            <button class="btn-primary" type="button">New</button>
+            <button class="btn-primary" type="button">Upload</button>
+            <button class="btn-primary" type="button">Share</button>
+          </div>
+        </div>
+      </header>
+      <div class="main-content">
+        <section class="projects" aria-labelledby="projects-title">
+          <h2 id="projects-title">Your Projects</h2>
+          <div class="projects-grid">
+            <article class="card">
+              <h3>Super Cool Project</h3>
+              <p>
+                Sed tempus ut lacus ut scelerisque. Suspendisse sollicitudin
+                nibh erat, id facilisis felis accumsan nec.
+              </p>
+              <div class="project-actions">
+                <button type="button" aria-label="Favorite">
+                  <img src="/assets/icons/star.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Preview">
+                  <img src="/assets/icons/eye.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Fork">
+                  <img src="/assets/icons/git-fork.svg" alt="" />
+                </button>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Less Cool Project</h3>
+              <p>
+                Nullam condimentum ipsum ut lectus vehicula consectetur. Quisque
+                sed dolor tincidunt, consectetur sapien et, facilisis dolor.
+                Duis sem purus, dignissim ut sapien in, varius pellentesque
+                lacus.
+              </p>
+              <div class="project-actions">
+                <button type="button" aria-label="Favorite">
+                  <img src="/assets/icons/star.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Preview">
+                  <img src="/assets/icons/eye.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Fork">
+                  <img src="/assets/icons/git-fork.svg" alt="" />
+                </button>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Impossible App</h3>
+              <p>
+                In hac habitasse platea dictumst. Vivamus dictum rutrum arcu, a
+                placerat velit sagittis id.
+              </p>
+              <div class="project-actions">
+                <button type="button" aria-label="Favorite">
+                  <img src="/assets/icons/star.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Preview">
+                  <img src="/assets/icons/eye.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Fork">
+                  <img src="/assets/icons/git-fork.svg" alt="" />
+                </button>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Easy Peasy App</h3>
+              <p>
+                Etiam cursus eros ac efficitur fringilla. Vestibulum dignissim
+                urna eget accumsan aliquam. Curabitur dignissim nisi in tortor
+                commodo, ac bibendum magna tincidunt.
+              </p>
+              <div class="project-actions">
+                <button type="button" aria-label="Favorite">
+                  <img src="/assets/icons/star.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Preview">
+                  <img src="/assets/icons/eye.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Fork">
+                  <img src="/assets/icons/git-fork.svg" alt="" />
+                </button>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Ad Blocker</h3>
+              <p>
+                Quisque eget rutrum nisl. Nam augue justo, cursus vitae metus
+                vel, pharetra hendrerit felis. Aliquam sed malesuada eros.
+              </p>
+              <div class="project-actions">
+                <button type="button" aria-label="Favorite">
+                  <img src="/assets/icons/star.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Preview">
+                  <img src="/assets/icons/eye.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Fork">
+                  <img src="/assets/icons/git-fork.svg" alt="" />
+                </button>
+              </div>
+            </article>
+            <article class="card">
+              <h3>Money Maker</h3>
+              <p>
+                Praesent convallis, libero quis congue elementum, nunc ante
+                faucibus sapien, ac scelerisque tortor purus sit amet ex.
+                Pellentesque mollis nec sem vel aliquam.
+              </p>
+              <div class="project-actions">
+                <button type="button" aria-label="Favorite">
+                  <img src="/assets/icons/star.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Preview">
+                  <img src="/assets/icons/eye.svg" alt="" />
+                </button>
+                <button type="button" aria-label="Fork">
+                  <img src="/assets/icons/git-fork.svg" alt="" />
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section class="announcements" aria-labelledby="announcements-title">
+          <h2 id="announcements-title">Announcements</h2>
+          <article class="announcement">
+            <h3>Site Maintenance</h3>
+            <p>
+              Vestibulum condimentum tellus lacus, in accumsan elit maximus ac.
+              Donec hendrerit sodales congue...
+            </p>
+          </article>
+          <hr />
+          <article class="announcement">
+            <h3>Community Share Day</h3>
+            <p>
+              Nam vel lectus tincidunt, rutrum nulla eu, ornare libero. Aliquam
+              dictum accumsan porttitor...
+            </p>
+          </article>
+          <hr />
+          <article class="announcement">
+            <h3>Updated Privacy Policy</h3>
+            <p>
+              Phasellus efficitur nisi eget elit consectetur, eget condimentum
+              ante auctor. Cras fringilla sagittis sem in mattis...
+            </p>
+          </article>
+        </section>
+        <section class="trending" aria-labelledby="trending-title">
+          <h2 id="trending-title">Trending</h2>
+          <ul class="trending-list">
+            <li class="user">
+              <img src="/assets/icons/circle-user-round.svg" alt="" />
+              <div class="user-text">
+                <p class="user-handle">@tegan</p>
+                <p>World Peace Builder</p>
+              </div>
+            </li>
+            <li class="user">
+              <img src="/assets/icons/circle-user-round.svg" alt="" />
+              <div class="user-text">
+                <p class="user-handle">@morgan</p>
+                <p>Super Cool Project</p>
+              </div>
+            </li>
+            <li class="user">
+              <img src="/assets/icons/circle-user-round.svg" alt="" />
+              <div class="user-text">
+                <p class="user-handle">@kendall</p>
+                <p>Life Changing App</p>
+              </div>
+            </li>
+            <li class="user">
+              <img src="/assets/icons/circle-user-round.svg" alt="" />
+              <div class="user-text">
+                <p class="user-handle">@alex</p>
+                <p>No Traffic Maker</p>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
