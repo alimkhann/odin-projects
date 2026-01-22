@@ -279,7 +279,7 @@ html {
 }
 
 body {
-  background-color: var(--bg-body);
+  background-color: var(--bg-surface);
   color: var(--text-primary);
 }
 
@@ -291,7 +291,7 @@ span {
 
 .sidebar {
   background-color: var(--bg-surface);
-  border-right: 1px solid var(--border-subtle);
+  border-right: none;
   color: var(--text-secondary);
 
   button {
@@ -556,8 +556,12 @@ body.sidebar-collapsed .sidebar a span {
 
 .header {
   display: grid;
-  padding: 1rem;
+  padding: 0;
+  margin: -1.5rem -1.5rem 0;
+  width: calc(100% + 3rem);
   gap: 1rem;
+  border: none;
+  border-radius: 0;
 
   .header-top,
   .header-bottom {
@@ -568,6 +572,7 @@ body.sidebar-collapsed .sidebar a span {
   .header-top {
     grid-template-columns: 2fr auto auto auto;
     gap: 0.75rem;
+    padding: 1rem;
   }
 
   .header-user {
@@ -660,6 +665,7 @@ body.sidebar-collapsed .sidebar a span {
   .header-bottom {
     grid-template-columns: 1fr auto;
     gap: 1rem;
+    padding: 0 1rem 1rem;
   }
 
   .hi-user {
@@ -691,15 +697,27 @@ body.sidebar-collapsed .sidebar a span {
 .main {
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background-color: var(--bg-surface);
 }
 
 .main-content {
   display: grid;
+  height: 100%;
+  width: 100%;
   grid-template-columns: 3fr 1fr;
   gap: 1.5rem;
   align-items: start;
+  padding: 1.5rem;
+  background-color: var(--bg-body);
+  border-radius: 2rem;
+  box-shadow: 0 0 0 1px var(--border-subtle);
+}
+
+.main-circlish-container {
+  background-color: black;
+  border-radius: 2rem;
 }
 
 .side-panel {
