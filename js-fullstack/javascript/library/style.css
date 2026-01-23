@@ -412,7 +412,7 @@ select:-webkit-autofill {
   background: #5a4636;
   box-shadow: 0 0.625rem 1.125rem rgba(0, 0, 0, 0.35);
   border-radius: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .shelf-back {
@@ -474,6 +474,45 @@ select:-webkit-autofill {
   align-items: flex-end;
   gap: 0.375rem;
   z-index: 3;
+  overflow: visible;
+}
+
+/* book */
+.book {
+  position: relative;
+}
+
+.book::after {
+  content: attr(data-title);
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  z-index: 4;
+  transform: translate(-50%, -6px);
+  white-space: nowrap;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+  color: #fff;
+  background: #444;
+}
+
+.book:hover::after {
+  opacity: 1;
+  transform: translate(-50%, -10px);
+}
+
+.book[data-read="true"]:hover::after {
+  background: #16a34a;
+}
+
+.book[data-read="false"]:hover::after {
+  background: #dc2626;
 }
 
 /* LAYOUT */

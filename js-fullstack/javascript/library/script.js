@@ -134,7 +134,8 @@ function createBookEl(book) {
   const lighter = shadeRgb(book.color, 1.12);
   const darker = shadeRgb(book.color, 0.75);
   el.style.background = `linear-gradient(180deg, ${lighter}, ${book.color} 55%, ${darker})`;
-  el.title = book.title;
+  el.dataset.title = book.title;
+  el.dataset.read = book.haveRead ? "true" : "false";
 
   return el;
 }
