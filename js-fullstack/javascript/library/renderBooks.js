@@ -1,7 +1,7 @@
 import { CM_TO_PX, bookshelfRowHeightCM } from "./constants.js";
 import { createBookEl } from "./book.js";
 import { library } from "./library.js";
-import { createAddBookButton } from "./shelves.js";
+import { createAddBookButton } from "./renderShelves.js";
 
 export function renderBooks() {
   const shelfBookAreas = document.querySelectorAll(".shelf-books");
@@ -33,7 +33,7 @@ export function renderBooks() {
   });
 
   const addButton = createAddBookButton();
-  const addBookThicknessCM = 5;
+  const addBookThicknessCM = 7;
   const addBookHeightCM = bookshelfRowHeightCM - 8;
   addButton.style.width = `${addBookThicknessCM * CM_TO_PX}px`;
   addButton.style.height = `${addBookHeightCM * CM_TO_PX}px`;
