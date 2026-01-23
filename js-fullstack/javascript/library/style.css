@@ -515,6 +515,60 @@ select:-webkit-autofill {
   background: #dc2626;
 }
 
+/* add book */
+
+.shelf-row .add-book {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+
+.shelves:hover .add-book {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.add-book {
+  appearance: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 0;
+  outline: none;
+  position: relative;
+  box-shadow:
+    0 0 12px rgba(255, 255, 255, 0.35),
+    inset 0 0 12px rgba(255, 255, 255, 0.25);
+  transition:
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.add-book:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 0 18px rgba(255, 255, 255, 0.6),
+    inset 0 0 16px rgba(255, 255, 255, 0.35);
+}
+
+@keyframes book-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.add-book-form {
+  display: none;
+}
+.add-book-form.is-open {
+  display: block;
+}
+
 /* LAYOUT */
 
 body {
