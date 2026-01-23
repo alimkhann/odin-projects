@@ -1,10 +1,13 @@
 const library = [];
+
+const CM_TO_PX = 4;
+
+// bookshelf
+
 const bookshelfRowHeightCM = 30; // cm
 const bookshelvesNumber = 5; // levels
 const bookshelfLengthCM = 80; // cm
 const bookshelfRowWidthCM = bookshelfLengthCM;
-
-const CM_TO_PX = 4;
 
 function renderShelves() {
   const shelvesEl = document.querySelector(".shelves");
@@ -50,6 +53,8 @@ function renderShelves() {
   }
 }
 
+// book
+
 const randomRgbColor = () => {
   const red = Math.floor(Math.random() * 256);
   const green = Math.floor(Math.random() * 256);
@@ -58,7 +63,17 @@ const randomRgbColor = () => {
   return `rgb(${red}, ${green}, ${blue})`;
 };
 
-function calculateBookThickness(pageCount, paperThicknessCM = 0.12) {
+function shadeRgb(rgbString, factor) {
+  const match = rgbString.match(/\d+/g);
+  if (!match) return rgbString;
+
+  const [r, g, b] = match.map(Number);
+  const clamp = (value) => Math.max(0, Math.min(255, value));
+
+  return `rgb(${clamp(r * factor)}, ${clamp(g * factor)}, ${clamp(b * factor)})`;
+}
+
+function calculateBookThickness(pageCount, paperThicknessCM = 0.04) {
   const bookThickness = (pageCount / 2) * paperThicknessCM;
   return parseFloat(bookThickness.toFixed(2));
 }
@@ -75,11 +90,12 @@ function Book(title, author, pageCount, haveRead) {
   this.pageCount = pageCount;
   this.haveRead = haveRead;
 
-  this.thickness = calculateBookThickness(pageCount);
+  this.thicknessCM = calculateBookThickness(pageCount);
+  const minBookHeightCM = 12;
+  const maxBookHeightCM = bookshelfRowHeightCM - 6;
   this.heightCM = (
-    Math.random() * (bookshelfRowHeightCM - 2 - bookshelfRowHeightCM - 12) +
-    bookshelfRowHeightCM -
-    12
+    Math.random() * (maxBookHeightCM - minBookHeightCM) +
+    minBookHeightCM
   ).toFixed(1);
   this.color = randomRgbColor();
 
@@ -106,6 +122,52 @@ library.forEach((book) => {
   console.log(book.info());
 });
 
+function createBookEl(book) {
+  const el = document.createElement("div");
+  el.className = "book";
+
+  const widthPx = book.thicknessCM * CM_TO_PX;
+  const heightPx = book.heightCM * CM_TO_PX;
+
+  el.style.width = `${widthPx}px`;
+  el.style.height = `${heightPx}px`;
+  const lighter = shadeRgb(book.color, 1.12);
+  const darker = shadeRgb(book.color, 0.75);
+  el.style.background = `linear-gradient(180deg, ${lighter}, ${book.color} 55%, ${darker})`;
+  el.title = book.title;
+
+  return el;
+}
+
+function renderBooks() {
+  const shelfBookAreas = document.querySelectorAll(".shelf-books");
+  if (!shelfBookAreas.length) return;
+
+  shelfBookAreas.forEach((area) => (area.innerHTML = ""));
+
+  let shelfIndex = 0;
+  let currentWidth = 0;
+
+  const maxWidth = shelfBookAreas[0].clientWidth;
+
+  library.forEach((book) => {
+    const bookEl = createBookEl(book);
+    const bookWidth =
+      bookEl.getBoundingClientRect().width || book.thicknessCM * CM_TO_PX;
+
+    if (currentWidth + bookWidth > maxWidth) {
+      shelfIndex += 1;
+      currentWidth = 0;
+    }
+
+    if (!shelfBookAreas[shelfIndex]) return;
+
+    shelfBookAreas[shelfIndex].appendChild(bookEl);
+    currentWidth += bookWidth;
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderShelves();
+  renderBooks();
 });
