@@ -1,0 +1,408 @@
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
+
+button {
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+/* Main Page Title (e.g., "Overview", "Settings") */
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Card/Widget Titles */
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Section subsections / Key Data Metrics */
+
+h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Column Headers (often Uppercase + Bold) */
+
+h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+/* Standard data tables, logs, standard text */
+
+p,
+li,
+input,
+table {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Meta text, timestamps, footnotes */
+
+small,
+caption {
+  font-size: 0.75rem;
+}
+
+:root {
+  /* Base neutrals (already have these) */
+  --stone-50: #fafaf9;
+  --stone-100: #f5f5f4;
+  --stone-200: #e7e5e4;
+  --stone-300: #d6d3d1;
+  --stone-400: #a8a29e;
+  --stone-500: #78716c;
+  --stone-600: #57534e;
+  --stone-700: #44403c;
+  --stone-800: #292524;
+  --stone-900: #1c1917;
+  --stone-950: #0c0a09;
+
+  /* Background / surfaces (light theme) */
+  --bg-body: var(--stone-100);
+  --bg-surface: var(--stone-50); /* cards, panels */
+  --bg-subtle: var(--stone-200); /* subtle section backgrounds */
+
+  /* Borders */
+  --border-subtle: var(--stone-200);
+  --border-strong: var(--stone-300);
+
+  /* Text */
+  --text-primary: var(--stone-900);
+  --text-secondary: var(--stone-600);
+  --text-muted: var(--stone-500);
+
+  --text-link: var(--text-primary);
+
+  /* Interactive (outline / focus / active) */
+  --outline: var(--stone-400); /* focus rings */
+  --button-bg: var(--stone-900); /* primary button */
+  --button-bg-hover: var(--stone-800);
+  --button-text: var(--stone-50);
+  --button-border: var(--stone-800);
+  --radius-sm: 0.25rem;
+  --sidebar-active-bg: var(--stone-900);
+  --sidebar-active-text: var(--stone-50);
+
+  /* Subtle button / chips */
+  --chip-bg: var(--stone-200);
+  --chip-text: var(--stone-800);
+}
+
+[data-theme="dark"] {
+  --bg-body: #090909;
+  --bg-surface: #101010;
+  --bg-subtle: var(--stone-800);
+
+  --border-subtle: var(--stone-800);
+  --border-strong: var(--stone-700);
+
+  --text-primary: var(--stone-50);
+  --text-secondary: var(--stone-300);
+  --text-muted: var(--stone-400);
+
+  --text-link: var(--text-primary);
+
+  --outline: var(--stone-500);
+  --button-bg: var(--stone-50);
+  --button-bg-hover: var(--stone-200);
+  --button-text: var(--stone-900);
+  --button-border: var(--stone-200);
+  --radius-sm: 0.25rem;
+  --sidebar-active-bg: var(--stone-800);
+  --sidebar-active-text: var(--stone-50);
+
+  --chip-bg: var(--stone-800);
+  --chip-text: var(--stone-50);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg-body: #090909;
+    --bg-surface: #101010;
+    --bg-subtle: var(--stone-800);
+
+    --border-subtle: var(--stone-800);
+    --border-strong: var(--stone-700);
+
+    --text-primary: var(--stone-50);
+    --text-secondary: var(--stone-300);
+    --text-muted: var(--stone-400);
+
+    --outline: var(--stone-500);
+    --button-bg: var(--stone-50);
+    --button-bg-hover: var(--stone-200);
+    --button-text: var(--stone-900);
+    --button-border: var(--stone-200);
+    --radius-sm: 0.25rem;
+    --sidebar-active-bg: var(--stone-800);
+    --sidebar-active-text: var(--stone-50);
+
+    --chip-bg: var(--stone-800);
+    --chip-text: var(--stone-50);
+  }
+}
+
+[data-theme="dark"] .sidebar img:not([src*="logo_light.png"]),
+[data-theme="dark"] .header img,
+[data-theme="dark"] .project-actions img,
+[data-theme="dark"] .trending img {
+  filter: invert(1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .sidebar img:not([src*="logo_light.png"]),
+  :root:not([data-theme]) .header img,
+  :root:not([data-theme]) .project-actions img,
+  :root:not([data-theme]) .trending img {
+    filter: invert(1);
+  }
+}
+
+[data-theme="light"] img[src*="logo_light.png"] {
+  filter: invert(1);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) img[src*="logo_light.png"] {
+    filter: invert(1);
+  }
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+html {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+/* COLORS */
+
+span {
+  color: var(--text-link);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 12px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-border);
+  border-radius: var(--radius-sm, 0.25rem);
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--button-bg-hover);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-primary:focus,
+.btn-ghost:focus {
+  outline: 2px solid var(--outline);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid var(--input-border);
+  border-radius: 0.25rem;
+  background-color: transparent;
+  color: inherit;
+}
+
+:root[data-theme="dark"] input {
+  border: 1px solid #333;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-primary) inset !important;
+  -webkit-text-fill-color: white !important;
+}
+
+/* LEVEL DESIGN */
+
+.scene {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.walls {
+  position: relative;
+  flex: 1 1 auto;
+  background: linear-gradient(#7a6a55, #6b5b47);
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  align-items: stretch;
+}
+
+.wainscot {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25%;
+  background: #5b4636;
+  box-shadow: inset 0 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.light {
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 220, 150, 0.35),
+    transparent
+  );
+}
+
+.shelves {
+  position: relative;
+}
+
+.floor {
+  height: 20vh;
+  background: linear-gradient(#3c2f28, #2b211c);
+  position: relative;
+}
+
+.carpet {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 20%;
+  bottom: 15%;
+  background: #7b1e1e;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4) inset;
+}
+
+/* LAYOUT */
+
+body {
+  min-height: 100vh;
+}
