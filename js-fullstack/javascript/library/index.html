@@ -23,6 +23,9 @@
 
       <dialog class="add-book-dialog">
         <form class="add-book-form" method="dialog">
+          <button type="button" class="close-dialog" aria-label="Close">
+            <img src="x.svg" alt="" />
+          </button>
           <h3>Add book</h3>
           <label>
             Title
@@ -42,7 +45,19 @@
           </label>
           <menu>
             <button type="button" class="cancel-add-book">Cancel</button>
+            <button type="button" class="delete-book">Delete</button>
             <button type="submit">Add</button>
+          </menu>
+        </form>
+      </dialog>
+
+      <dialog class="confirm-delete-dialog">
+        <form class="confirm-delete-form" method="dialog">
+          <h3>Delete book?</h3>
+          <p>Are you sure you want to delete this book?</p>
+          <menu>
+            <button type="button" class="confirm-no">No</button>
+            <button type="button" class="confirm-yes">Yes</button>
           </menu>
         </form>
       </dialog>

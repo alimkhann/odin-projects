@@ -62,8 +62,15 @@ export function createBookEl(book) {
   const lighter = shadeRgb(book.color, 1.12);
   const darker = shadeRgb(book.color, 0.75);
   el.style.background = `linear-gradient(180deg, ${lighter}, ${book.color} 55%, ${darker})`;
+  el.dataset.id = book.id;
   el.dataset.title = book.title;
   el.dataset.read = book.haveRead ? "true" : "false";
+
+  const editBtn = document.createElement("button");
+  editBtn.type = "button";
+  editBtn.className = "edit-book";
+  editBtn.setAttribute("aria-label", "Edit book");
+  el.appendChild(editBtn);
 
   return el;
 }

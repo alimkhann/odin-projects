@@ -586,13 +586,6 @@ select:-webkit-autofill {
   }
 }
 
-.add-book-form {
-  display: none;
-}
-.add-book-form.is-open {
-  display: block;
-}
-
 .add-book-dialog::backdrop {
   background: rgba(20, 16, 12, 0.6);
   backdrop-filter: blur(2px);
@@ -614,6 +607,25 @@ select:-webkit-autofill {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
   display: grid;
   gap: 12px;
+  position: relative;
+}
+
+.add-book-form .close-dialog {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f7f3ee;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.add-book-form .close-dialog img {
+  width: 18px;
+  height: 18px;
 }
 
 .add-book-form h3 {
@@ -686,6 +698,74 @@ select:-webkit-autofill {
   background: #5a4636;
   color: #f7f3ee;
   border-color: #5a4636;
+}
+
+.add-book-form .delete-book.danger {
+  background: #b91c1c;
+  color: #fff;
+  border-color: #b91c1c;
+}
+
+/* confirm delete dialog */
+.confirm-delete-dialog::backdrop {
+  background: rgba(20, 16, 12, 0.6);
+  backdrop-filter: blur(2px);
+}
+
+.confirm-delete-dialog {
+  border: none;
+  padding: 0;
+  background: transparent;
+}
+
+.confirm-delete-form {
+  width: min(360px, 88vw);
+  background: #f7f3ee;
+  color: #2a1f18;
+  border: 1px solid #d8cfc4;
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  display: grid;
+  gap: 10px;
+}
+
+.confirm-delete-form menu {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.confirm-delete-form .confirm-yes {
+  background: #b91c1c;
+  color: #fff;
+  border: 1px solid #b91c1c;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.confirm-delete-form .confirm-no {
+  background: #eee6dd;
+  border: 1px solid #bcae9f;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+/* edit book */
+
+.book .edit-book {
+  position: absolute;
+  inset: -0.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  background: transparent;
+}
+
+.book:hover .edit-book {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* LAYOUT */
