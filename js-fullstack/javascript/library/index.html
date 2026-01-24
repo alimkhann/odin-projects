@@ -20,6 +20,32 @@
           <div class="carpet"></div>
         </div>
       </div>
+
+      <dialog class="add-book-dialog">
+        <form class="add-book-form" method="dialog">
+          <h3>Add book</h3>
+          <label>
+            Title
+            <input name="title" required />
+          </label>
+          <label>
+            Author
+            <input name="author" required />
+          </label>
+          <label>
+            Pages
+            <input name="pages" type="number" min="1" required />
+          </label>
+          <label class="checkbox-field">
+            Read
+            <input name="haveRead" type="checkbox" />
+          </label>
+          <menu>
+            <button type="button" class="cancel-add-book">Cancel</button>
+            <button type="submit">Add</button>
+          </menu>
+        </form>
+      </dialog>
     </main>
   </body>
 </html>
