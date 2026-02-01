@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./main.js" defer></script>
+    <title>Tic Tac Toe</title>
+  </head>
+  <body>
+    <main class="app">
+      <h1>Tic Tac Toe</h1>
+
+      <section class="controls">
+        <label for="player-1"
+          >Player 1
+          <input type="text" name="player-1" id="player-1" />
+        </label>
+        <label for="player-2"
+          >Player 2
+          <input type="text" name="player-2" id="player-2" />
+        </label>
+        <button id="start">Start</button>
+      </section>
+
+      <section class="status" id="status">
+        Enter names and start the game.
+      </section>
+
+      <section
+        class="board"
+        id="board"
+        aria-label="Tic Tac Toe Board"
+      ></section>
+    </main>
+  </body>
+</html>
