@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+
 /* 1. Use a more-intuitive box-sizing model */
 *,
 *::before,
@@ -100,31 +102,33 @@ a:visited {
 /* Main Page Title (e.g., "Overview", "Settings") */
 
 h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.2;
 }
 
 /* Card/Widget Titles */
 
 h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.4;
 }
 
 /* Section subsections / Key Data Metrics */
 
 h3 {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.125rem;
+  font-weight: 400;
 }
 
 /* Column Headers (often Uppercase + Bold) */
 
 h4 {
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.05rem;
+  letter-spacing: 0.12em;
 }
 
 /* Standard data tables, logs, standard text */
@@ -133,15 +137,15 @@ p,
 li,
 input,
 table {
-  font-size: 0.875rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 /* Meta text, timestamps, footnotes */
 
 small,
 caption {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 }
 
 :root {
@@ -195,15 +199,32 @@ hr {
 }
 
 html {
+  font-size: clamp(16px, calc(14px + 0.4vw), 22px);
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol";
 }
 
-html, body {
+html,
+body {
   background-color: var(--bg-body) !important;
 }
 
 body {
   color: var(--text-primary);
+}
+
+button,
+img,
+input {
+  border-radius: 0.25rem;
 }

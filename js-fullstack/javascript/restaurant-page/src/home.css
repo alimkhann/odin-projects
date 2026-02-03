@@ -30,28 +30,30 @@
   align-items: center;
   gap: 0.9rem;
   padding: 4.5rem 1.5rem;
-  max-width: 40rem;
+  max-width: 56rem;
 }
 
 .hero-text h1 {
-  font-size: clamp(2.2rem, 3.5vw, 3rem);
-  font-weight: 400;
-  line-height: 1.25;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
 .hero-text p {
-  font-size: 0.85rem;
-  color: #e0d8cc;
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: -0.02em;
 }
 
 #hero-reserve-btn {
-  margin-top: 0.5rem;
-  background: #8b6a3f;
-  color: #f8efe3;
-  padding: 0.7rem 2rem;
+  margin-top: 1rem;
+  background: #8b6f47;
+  color: #ffffff;
+  padding: 0.9rem 2.5rem;
   border-radius: 2px;
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
+  font-size: 0.9375rem;
+  letter-spacing: 0.03em;
   cursor: pointer;
   transition: background 0.2s ease;
 }
@@ -66,11 +68,11 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
   gap: 3rem;
-  padding: 5rem 6rem;
+  padding: 16rem 6rem;
 }
 
 #food-image {
-  width: min(28rem, 100%);
+  width: min(24rem, 100%);
   border-radius: 2px;
   justify-self: end;
 }
@@ -80,17 +82,20 @@
 }
 
 .philosophy-text h2 {
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  font-size: 0.875rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #b6a189;
-  margin-bottom: 0.9rem;
+  color: #8b6f47;
+  margin-bottom: 1rem;
+  font-weight: 400;
 }
 
 .philosophy-text p {
-  font-size: 0.8rem;
-  line-height: 1.6;
-  color: #4a4239;
+  font-size: 1.375rem;
+  line-height: 1.8;
+  color: #2b2520;
+  font-weight: 300;
+  letter-spacing: -0.01em;
 }
 
 @media (max-width: 900px) {
@@ -121,17 +126,18 @@
 }
 
 .footer-section h3 {
-  color: #e9e1d6;
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  text-transform: capitalize;
+  color: #ffffff;
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.025em;
 }
 
 .footer-section p {
-  font-size: 0.75rem;
+  font-size: 0.9375rem;
   line-height: 1.6;
-  color: #8a847c;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
 }
 
 .footer-section ul {
@@ -140,12 +146,13 @@
 }
 
 .footer-section ul li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .footer-section ul li a {
-  color: #8a847c;
-  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9375rem;
+  font-weight: 300;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -247,6 +254,10 @@
   border-top: 1px solid #2a2520;
   font-size: 0.7rem;
   color: #5a554d;
+}
+
+.footer-bottom p {
+  font-size: 0.7rem;
 }
 
 .footer-bottom a {
