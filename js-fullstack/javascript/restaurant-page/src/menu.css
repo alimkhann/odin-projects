@@ -1,0 +1,194 @@
+/* Menu Page Styles */
+
+.menu-page {
+  background-color: #f5f1ed;
+  min-height: 100vh;
+  padding: calc(73px + 6rem) 1.5rem 4rem;
+}
+
+/* Menu Hero Section */
+.menu-hero {
+  max-width: 672px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.menu-hero h2 {
+  font-size: 2rem; /* 32px */
+  font-weight: 300;
+  letter-spacing: 0.325rem; /* 5.2px */
+  color: #2b2520;
+  margin-bottom: 1rem;
+}
+
+.menu-hero p {
+  font-size: 0.9375rem; /* 15px */
+  font-weight: 300;
+  color: #5a5550;
+  letter-spacing: 0.0344rem; /* 0.55px */
+}
+
+/* Menu Section Container */
+.menu-section {
+  max-width: 672px;
+  margin: 0 auto 3rem;
+}
+
+/* Section Header (for Tasting Menu) */
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-header h2 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 400;
+  letter-spacing: 0.154rem; /* 2.47px */
+  color: #2b2520;
+  margin-bottom: 0.75rem;
+}
+
+.section-price {
+  font-size: 0.875rem; /* 14px */
+  font-weight: 300;
+  color: #8b6f47;
+  letter-spacing: 0.0344rem; /* 0.55px */
+}
+
+/* Main Section Titles (A LA CARTE, BEVERAGES) */
+.menu-section > h2 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 400;
+  letter-spacing: 0.154rem; /* 2.47px */
+  color: #2b2520;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Menu Subsections */
+.menu-subsection {
+  margin-bottom: 3.5rem;
+}
+
+.menu-subsection:last-of-type {
+  margin-bottom: 0;
+}
+
+.menu-subsection h3 {
+  font-size: 1.5rem; /* 14px */
+  font-weight: 400;
+  color: #8b6f47;
+  letter-spacing: 0.122rem; /* 1.95px */
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+/* Menu Items Container */
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Individual Menu Item */
+.menu-item {
+  text-align: center;
+}
+
+.menu-item h5 {
+  font-size: 1.125rem; /* 18px */
+  font-weight: 400;
+  color: #2b2520;
+  letter-spacing: 0.0288rem; /* 0.46px */
+  margin-bottom: 0.375rem;
+}
+
+.menu-item .item-description {
+  font-size: 0.9375rem; /* 15px */
+  font-weight: 300;
+  font-style: italic;
+  color: #5a5550;
+  letter-spacing: -0.0147rem; /* -0.235px */
+  line-height: 1.6;
+}
+
+.menu-item .item-extra {
+  font-size: 0.875rem; /* 14px */
+  font-weight: 300;
+  font-style: italic;
+  color: #5a5550;
+  letter-spacing: -0.0094rem; /* -0.15px */
+  margin-top: 0.375rem;
+}
+
+/* Note styling (for "Choose one") */
+.menu-note {
+  font-size: 0.9375rem; /* 15px */
+  font-weight: 300;
+  font-style: italic;
+  color: #5a5550;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Beverage Items (simpler, no name) */
+.menu-subsection:has(.menu-item:not(:has(h5))) .item-description {
+  font-style: normal;
+  color: #2b2520;
+}
+
+/* Menu Dividers */
+.menu-divider {
+  max-width: 672px;
+  margin: 3rem auto;
+  height: 1px;
+  background-color: rgba(43, 37, 32, 0.2);
+}
+
+/* Disclaimer Footer */
+.menu-disclaimer {
+  max-width: 672px;
+  margin: 4rem auto 0;
+  padding-top: 4rem;
+  border-top: 1px solid rgba(43, 37, 32, 0.2);
+  text-align: center;
+}
+
+.menu-disclaimer p {
+  font-size: 0.875rem; /* 14px */
+  font-weight: 300;
+  font-style: italic;
+  color: #8b6f47;
+  letter-spacing: -0.0094rem; /* -0.15px */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .menu-page {
+    padding: calc(73px + 1.5rem) 1rem 3rem;
+  }
+
+  .menu-hero h2 {
+    font-size: 1.75rem;
+    letter-spacing: 0.25rem;
+  }
+
+  .section-header h2,
+  .menu-section > h2 {
+    font-size: 1.25rem;
+  }
+
+  .menu-item h5 {
+    font-size: 1rem;
+  }
+
+  .menu-item .item-description,
+  .menu-note {
+    font-size: 0.875rem;
+  }
+
+  .menu-subsection {
+    margin-bottom: 2.5rem;
+  }
+}
