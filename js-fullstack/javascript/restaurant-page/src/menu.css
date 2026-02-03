@@ -14,18 +14,18 @@
 }
 
 .menu-hero h2 {
-  font-size: 2rem; /* 32px */
+  font-size: 2rem;
   font-weight: 300;
-  letter-spacing: 0.325rem; /* 5.2px */
+  letter-spacing: 0.325rem;
   color: #2b2520;
   margin-bottom: 1rem;
 }
 
 .menu-hero p {
-  font-size: 0.9375rem; /* 15px */
+  font-size: 0.9375rem;
   font-weight: 300;
   color: #5a5550;
-  letter-spacing: 0.0344rem; /* 0.55px */
+  letter-spacing: 0.0344rem;
 }
 
 /* Menu Section Container */
@@ -41,25 +41,25 @@
 }
 
 .section-header h2 {
-  font-size: 1.5rem; /* 24px */
+  font-size: 1.5rem;
   font-weight: 400;
-  letter-spacing: 0.154rem; /* 2.47px */
+  letter-spacing: 0.154rem;
   color: #2b2520;
   margin-bottom: 0.75rem;
 }
 
 .section-price {
-  font-size: 0.875rem; /* 14px */
+  font-size: 0.875rem;
   font-weight: 300;
   color: #8b6f47;
-  letter-spacing: 0.0344rem; /* 0.55px */
+  letter-spacing: 0.0344rem;
 }
 
 /* Main Section Titles (A LA CARTE, BEVERAGES) */
 .menu-section > h2 {
-  font-size: 1.5rem; /* 24px */
+  font-size: 1.5rem;
   font-weight: 400;
-  letter-spacing: 0.154rem; /* 2.47px */
+  letter-spacing: 0.154rem;
   color: #2b2520;
   text-align: center;
   margin-bottom: 3rem;
@@ -75,10 +75,10 @@
 }
 
 .menu-subsection h3 {
-  font-size: 1.5rem; /* 14px */
+  font-size: 1.5rem;
   font-weight: 400;
   color: #8b6f47;
-  letter-spacing: 0.122rem; /* 1.95px */
+  letter-spacing: 0.122rem;
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 0.25rem;
@@ -97,34 +97,34 @@
 }
 
 .menu-item h5 {
-  font-size: 1.125rem; /* 18px */
+  font-size: 1.125rem;
   font-weight: 400;
   color: #2b2520;
-  letter-spacing: 0.0288rem; /* 0.46px */
+  letter-spacing: 0.0288rem;
   margin-bottom: 0.375rem;
 }
 
 .menu-item .item-description {
-  font-size: 0.9375rem; /* 15px */
+  font-size: 0.9375rem;
   font-weight: 300;
   font-style: italic;
   color: #5a5550;
-  letter-spacing: -0.0147rem; /* -0.235px */
+  letter-spacing: -0.0147rem;
   line-height: 1.6;
 }
 
 .menu-item .item-extra {
-  font-size: 0.875rem; /* 14px */
+  font-size: 0.875rem;
   font-weight: 300;
   font-style: italic;
   color: #5a5550;
-  letter-spacing: -0.0094rem; /* -0.15px */
+  letter-spacing: -0.0094rem;
   margin-top: 0.375rem;
 }
 
 /* Note styling (for "Choose one") */
 .menu-note {
-  font-size: 0.9375rem; /* 15px */
+  font-size: 0.9375rem;
   font-weight: 300;
   font-style: italic;
   color: #5a5550;
@@ -156,11 +156,11 @@
 }
 
 .menu-disclaimer p {
-  font-size: 0.875rem; /* 14px */
+  font-size: 0.875rem;
   font-weight: 300;
   font-style: italic;
   color: #8b6f47;
-  letter-spacing: -0.0094rem; /* -0.15px */
+  letter-spacing: -0.0094rem;
 }
 
 /* Responsive adjustments */
