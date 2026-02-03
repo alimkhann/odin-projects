@@ -12,6 +12,18 @@ function setActiveButton(activeBtn) {
 function handleNavbarScroll() {
   const header = document.querySelector("header");
   const hero = document.querySelector(".hero");
+  const contactPage = document.querySelector(".contact-page");
+  const menuPage = document.querySelector(".menu-page");
+
+  if (contactPage) {
+    header.classList.remove("scrolled");
+    return;
+  }
+
+  if (menuPage) {
+    header.classList.add("scrolled");
+    return;
+  }
 
   if (!hero) {
     header.classList.add("scrolled");
