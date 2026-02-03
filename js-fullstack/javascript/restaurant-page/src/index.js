@@ -14,8 +14,9 @@ function handleNavbarScroll() {
   const hero = document.querySelector(".hero");
   const contactPage = document.querySelector(".contact-page");
   const menuPage = document.querySelector(".menu-page");
+  const reservePage = document.querySelector(".reserve-page");
 
-  if (contactPage) {
+  if (contactPage || reservePage) {
     header.classList.remove("scrolled");
     return;
   }
