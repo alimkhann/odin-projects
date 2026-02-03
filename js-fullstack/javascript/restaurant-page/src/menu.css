@@ -166,17 +166,39 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .menu-page {
-    padding: calc(73px + 1.5rem) 1rem 3rem;
+    padding: calc(60px + 2rem) 1rem 2rem;
+  }
+
+  .menu-hero {
+    margin-bottom: 2rem;
   }
 
   .menu-hero h2 {
-    font-size: 1.75rem;
-    letter-spacing: 0.25rem;
+    font-size: 1.5rem;
+    letter-spacing: 0.2rem;
+  }
+
+  .menu-hero p {
+    font-size: 0.875rem;
   }
 
   .section-header h2,
   .menu-section > h2 {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
+    letter-spacing: 0.1rem;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+  }
+
+  .menu-section {
+    margin-bottom: 2rem;
+  }
+
+  .menu-subsection h3 {
+    font-size: 0.875rem;
+    letter-spacing: 0.08rem;
   }
 
   .menu-item h5 {
@@ -189,6 +211,38 @@
   }
 
   .menu-subsection {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .menu-divider {
+    margin: 2rem auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-page {
+    padding: calc(55px + 1.5rem) 0.75rem 1.5rem;
+  }
+
+  .menu-hero h2 {
+    font-size: 1.25rem;
+    letter-spacing: 0.15rem;
+  }
+
+  .section-header h2,
+  .menu-section > h2 {
+    font-size: 1rem;
+  }
+
+  .menu-subsection h3 {
+    font-size: 0.8125rem;
+  }
+
+  .menu-item h5 {
+    font-size: 0.9375rem;
+  }
+
+  .menu-item .item-description {
+    font-size: 0.8125rem;
   }
 }
