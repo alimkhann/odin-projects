@@ -161,9 +161,6 @@
     padding: 0 1rem;
   }
 
-  .map-container {
-  }
-
   .map-container iframe {
     height: 300px;
   }
