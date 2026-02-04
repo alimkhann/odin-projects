@@ -1,7 +1,4 @@
-function makeId(prefix) {
-  return `${prefix}_${crypto.randomUUID()}`;
-}
-
+import { makeId } from "./id.js";
 export class Project {
   constructor({
     id = makeId("p"),
@@ -38,7 +35,20 @@ export class Project {
   }
 
   reorderTodoIds(newOrder) {
-    this.todoIds = Array.from(newOrder);
+    const arr = Array.from(newOrder ?? []);
+    const set = new Set(arr);
+    if (set.size !== arr.length)
+      throw new Error("Duplicate todoIds in reorder");
+
+    const currentSet = new Set(this.todoIds);
+    if (
+      arr.length !== currentSet.size ||
+      !arr.every((id) => currentSet.has(id))
+    ) {
+      throw new Error("Reorder must contain the same IDs as before");
+    }
+
+    this.todoIds = arr;
     this.touch();
   }
 

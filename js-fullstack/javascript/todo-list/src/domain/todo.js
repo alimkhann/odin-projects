@@ -1,5 +1,11 @@
-function makeId(prefix) {
-  return `${prefix}_${crypto.randomUUID()}`;
+import { makeId } from "./id.js";
+
+function isISODateOnly(s) {
+  return /^\d{4}-\d{2}-\d{2}$/.test(s);
+}
+
+function isTimeHHmm(s) {
+  return /^([01]\d|2[0-3]):[0-5]\d$/.test(s);
 }
 
 export function makeChecklistItem(
@@ -50,18 +56,28 @@ export class Todo {
     this.id = id;
     this.title = t;
     this.description = String(description).trim();
+
     this.dueDate = dueDate ? String(dueDate) : null;
+    if (this.dueDate && !isISODateOnly(this.dueDate)) {
+      throw new Error("dueDate must be YYYY-MM-DD or null");
+    }
+
     this.dueTime = dueTime ? String(dueTime) : null;
+    if (this.dueTime && !isTimeHHmm(this.dueTime)) {
+      throw new Error("dueTime must be HH:mm or null");
+    }
+
     this.priority = p;
     this.notes = String(notes).trim();
     this.tags = Array.from(
       new Set((tags ?? []).map((tag) => String(tag).trim()).filter(Boolean)),
     );
-    this.checklist = (checklist ?? []).map((item) =>
-      typeof item === "string"
-        ? makeChecklistItem(item)
-        : makeChecklistItem(item.text, item),
-    );
+    this.checklist = (checklist ?? []).map((item) => {
+      if (typeof item === "string") return makeChecklistItem(item);
+      if (item && typeof item === "object")
+        return makeChecklistItem(item.text, item);
+      throw new Error("Invalid checklist item");
+    });
     this.done = Boolean(done);
     this.recurrenceRule = normalizeRecurrenceRule(recurrenceRule);
     this.createdAt = createdAt;
@@ -82,11 +98,17 @@ export class Todo {
 
   setDueDate(isoOrNull) {
     this.dueDate = isoOrNull ? String(isoOrNull) : null;
+    if (this.dueDate && !isISODateOnly(this.dueDate)) {
+      throw new Error("dueDate must be YYYY-MM-DD or null");
+    }
     this.touch();
   }
 
   setDueTime(timeOrNull) {
     this.dueTime = timeOrNull ? String(timeOrNull) : null;
+    if (this.dueTime && !isTimeHHmm(this.dueTime)) {
+      throw new Error("dueTime must be HH:mm or null");
+    }
     this.touch();
   }
 
