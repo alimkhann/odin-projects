@@ -202,12 +202,12 @@
   border-color: transparent;
 }
 
-[data-theme="light"] #theme-pill-dark {
+[data-theme="light"] #theme-pill-dark:not(.is-active) {
   color: #111111;
 }
 
-[data-theme="light"] .settings-pill[data-theme="light"] {
-  color: var(--color-text-secondary);
+[data-theme="light"] .settings-pill.is-active {
+  color: #ffffff;
 }
 
 .settings-divider {

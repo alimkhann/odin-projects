@@ -206,10 +206,13 @@ export function reducer(state, action) {
         delete remainingTodos[todoId];
       });
 
+      const shouldClearSelection = todoIdsToDelete.includes(state.selectedTodoId);
+
       return {
         ...state,
         projects: remainingProjects,
         todos: remainingTodos,
+        selectedTodoId: shouldClearSelection ? null : state.selectedTodoId,
       };
     }
 

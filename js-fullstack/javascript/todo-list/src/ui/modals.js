@@ -71,6 +71,8 @@ export function openProjectModal({
 
   const form = document.createElement("form");
   form.className = "modal-form";
+  const formId = `project-modal-form-${Date.now()}`;
+  form.id = formId;
 
   const label = document.createElement("label");
   label.className = "modal-label";
@@ -104,6 +106,7 @@ export function openProjectModal({
   saveBtn.className = "modal-btn modal-btn--primary";
   saveBtn.type = "submit";
   saveBtn.textContent = "Save";
+  saveBtn.setAttribute("form", formId);
 
   footer.appendChild(cancelBtn);
   footer.appendChild(saveBtn);

@@ -59,13 +59,28 @@ function initTaskListDragging(store) {
       const projectId =
         activeView.type === "inbox" ? "p_inbox" : activeView.projectId;
 
+      const state = store.getState();
+      const project = state.projects.find((p) => p.id === projectId);
+      if (!project) return;
+
       // Read new order from DOM
       const taskRows = listTasks.querySelectorAll(".task-row");
-      const todoIds = Array.from(taskRows).map((row) => row.dataset.todoId);
+      const visibleIds = Array.from(taskRows)
+        .map((row) => row.dataset.todoId)
+        .filter(Boolean);
 
       // Dispatch reorder action
-      if (todoIds.length > 0) {
-        reorderTodos(store, projectId, todoIds);
+      if (visibleIds.length > 0) {
+        const visibleSet = new Set(visibleIds);
+        let cursor = 0;
+        const fullOrder = project.todoIds.map((id) => {
+          if (!visibleSet.has(id)) return id;
+          const nextId = visibleIds[cursor];
+          cursor += 1;
+          return nextId ?? id;
+        });
+
+        reorderTodos(store, projectId, fullOrder);
       }
     },
   });
