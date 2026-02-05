@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "dev": "webpack serve --config webpack.dev.js"
+    "dev": "webpack serve --config webpack.dev.js",
+    "deploy": "cd ../../.. && git checkout gh-pages && git merge main --no-edit && cd js-fullstack/javascript/todo-list && npm run build && cd ../../.. && git add build/ && git commit -m 'Deploy: todo-list' && git subtree split --prefix build -b gh-pages-temp && git push origin gh-pages-temp:gh-pages && git checkout main && git branch -D gh-pages-temp"
   },
   "devDependencies": {
     "css-loader": "^7.1.3",
