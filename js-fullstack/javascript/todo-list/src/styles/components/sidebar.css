@@ -1,0 +1,203 @@
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--color-bg-surface);
+  border-right: 1px solid var(--color-border-default);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* Header / Logo */
+.sidebar-header {
+  padding: var(--spacing-xl) var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.sidebar-logo__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.sidebar-logo__text {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: var(--line-height-tight);
+}
+
+/* Sections */
+.sidebar-section {
+  padding: var(--spacing-lg) var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.sidebar-section--projects {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebar-section__title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+  padding: 0 var(--spacing-md);
+}
+
+/* Smart Views Container */
+.sidebar-views {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+/* Sidebar Item (Common for views and projects) */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  user-select: none;
+}
+
+.sidebar-item:hover {
+  background: var(--color-bg-hover);
+}
+
+.sidebar-item--active {
+  background: var(--color-bg-active);
+}
+
+.sidebar-item--active .sidebar-item__text {
+  color: var(--color-primary-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.sidebar-item--active .sidebar-item__count {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.sidebar-item__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.sidebar-item--active .sidebar-item__icon {
+  opacity: 1;
+}
+
+.sidebar-item__text {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-item__count {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-hover);
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--radius-full);
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Projects Header */
+.sidebar-projects-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.sidebar-add-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast);
+}
+
+.sidebar-add-btn:hover {
+  background: var(--color-bg-hover);
+}
+
+.sidebar-add-btn__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Projects List */
+.sidebar-projects {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.sidebar-empty {
+  padding: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Footer / Settings */
+.sidebar-footer {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.sidebar-settings-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.sidebar-settings-btn:hover {
+  background: var(--color-bg-hover);
+}
+
+.sidebar-settings-btn__icon {
+  width: 18px;
+  height: 18px;
+}
+
+.sidebar-settings-btn__text {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
