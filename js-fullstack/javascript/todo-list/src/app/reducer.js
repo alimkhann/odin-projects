@@ -20,11 +20,12 @@ export function reducer(state, action) {
       const existingTodo = state.todos[id];
       if (!existingTodo) return state;
 
-      // Apply changes to the todo
+      const clonedTodo = Todo.fromJSON(existingTodo.toJSON());
+
       Object.entries(changes).forEach(([key, value]) => {
         const setter = `set${key.charAt(0).toUpperCase()}${key.slice(1)}`;
-        if (typeof existingTodo[setter] === "function") {
-          existingTodo[setter](value);
+        if (typeof clonedTodo[setter] === "function") {
+          clonedTodo[setter](value);
         }
       });
 
@@ -32,7 +33,7 @@ export function reducer(state, action) {
         ...state,
         todos: {
           ...state.todos,
-          [id]: existingTodo,
+          [id]: clonedTodo,
         },
       };
     }
@@ -42,13 +43,14 @@ export function reducer(state, action) {
       const todo = state.todos[id];
       if (!todo) return state;
 
-      todo.toggleDone();
+      const clonedTodo = Todo.fromJSON(todo.toJSON());
+      clonedTodo.toggleDone();
 
       return {
         ...state,
         todos: {
           ...state.todos,
-          [id]: todo,
+          [id]: clonedTodo,
         },
       };
     }
@@ -66,8 +68,10 @@ export function reducer(state, action) {
           const indexB = orderMap.has(b) ? orderMap.get(b) : Infinity;
           return indexA - indexB;
         });
-        project.todoIds = sortedTodoIds;
-        return project;
+
+        const clonedProject = Project.fromJSON(project.toJSON());
+        clonedProject.reorderTodoIds(sortedTodoIds);
+        return clonedProject;
       });
 
       return {
@@ -83,7 +87,9 @@ export function reducer(state, action) {
       // Remove from all projects
       const updatedProjects = state.projects.map((project) => {
         if (project.todoIds.includes(id)) {
-          project.removeTodoId(id);
+          const clonedProject = Project.fromJSON(project.toJSON());
+          clonedProject.removeTodoId(id);
+          return clonedProject;
         }
         return project;
       });
