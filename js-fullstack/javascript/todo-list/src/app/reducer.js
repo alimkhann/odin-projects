@@ -5,13 +5,26 @@ import { Project } from "../domain/project.js";
 export function reducer(state, action) {
   switch (action.type) {
     case ActionTypes.TODO_CREATED: {
-      const newTodo = new Todo(action.payload);
+      const { todoData, projectId } = action.payload;
+      const newTodo = new Todo(todoData);
+      
+      // Add todo to target project
+      const updatedProjects = state.projects.map((project) => {
+        if (project.id === projectId) {
+          const clonedProject = Project.fromJSON(project.toJSON());
+          clonedProject.addTodoId(newTodo.id);
+          return clonedProject;
+        }
+        return project;
+      });
+      
       return {
         ...state,
         todos: {
           ...state.todos,
           [newTodo.id]: newTodo,
         },
+        projects: updatedProjects,
       };
     }
 
@@ -109,7 +122,7 @@ export function reducer(state, action) {
       };
     }
 
-    case ActionTypes.ACTIVE_VIEW_SET: {
+    case ActionTypes.SET_ACTIVE_VIEW: {
       return {
         ...state,
         activeView: action.payload,

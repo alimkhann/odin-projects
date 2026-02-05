@@ -11,10 +11,10 @@ export const ActionTypes = {
   SET_ACTIVE_VIEW: "SET_ACTIVE_VIEW",
 };
 
-export function createTodo(todoData) {
+export function createTodo(todoData, projectId = "p_inbox") {
   return {
     type: ActionTypes.TODO_CREATED,
-    payload: todoData,
+    payload: { todoData, projectId },
   };
 }
 
@@ -32,10 +32,10 @@ export function toggleTodo(todoId) {
   };
 }
 
-export function reorderTodos(newOrder) {
+export function reorderTodos(projectId, todoIds) {
   return {
     type: ActionTypes.TODO_REORDERED,
-    payload: newOrder,
+    payload: { projectId, todoIds },
   };
 }
 
@@ -55,7 +55,7 @@ export function createProject(projectData) {
 
 export function setActiveView(view) {
   return {
-    type: ActionTypes.ACTIVE_VIEW_SET,
+    type: ActionTypes.SET_ACTIVE_VIEW,
     payload: view,
   };
 }
