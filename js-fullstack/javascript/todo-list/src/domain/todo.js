@@ -141,6 +141,13 @@ export class Todo {
     this.touch();
   }
 
+  setTags(tags) {
+    this.tags = Array.from(
+      new Set((tags ?? []).map((tag) => String(tag).trim()).filter(Boolean)),
+    );
+    this.touch();
+  }
+
   addChecklistItem(text) {
     this.checklist.push(makeChecklistItem(text));
     this.touch();
@@ -158,9 +165,23 @@ export class Todo {
     this.touch();
   }
 
+  setChecklist(checklist) {
+    this.checklist = (checklist ?? []).map((item) => {
+      if (typeof item === "object" && item.text) {
+        return makeChecklistItem(item.text, { id: item.id, done: item.done });
+      }
+      throw new Error("Invalid checklist item format");
+    });
+    this.touch();
+  }
+
   setRecurrence(ruleOrNull) {
     this.recurrenceRule = normalizeRecurrenceRule(ruleOrNull);
     this.touch();
+  }
+
+  setRecurrenceRule(ruleOrNull) {
+    this.setRecurrence(ruleOrNull);
   }
 
   touch() {

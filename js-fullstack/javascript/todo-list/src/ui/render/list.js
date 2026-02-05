@@ -2,15 +2,15 @@ import {
   selectTodosForActiveView,
   selectActiveView,
   selectProjectById,
-} from '../../app/services/queries.js';
-import { format, isToday, isPast } from 'date-fns';
+} from "../../app/services/queries.js";
+import { format, isToday, isPast } from "date-fns";
 
-import plusIcon from '../../assets/icons/plus.svg';
-import searchIcon from '../../assets/icons/search.svg';
-import sortIcon from '../../assets/icons/sort.svg';
-import clockIcon from '../../assets/icons/clock.svg';
-import repeatIcon from '../../assets/icons/repeat.svg';
-import listIcon from '../../assets/icons/list.svg';
+import plusIcon from "../../assets/icons/plus.svg";
+import searchIcon from "../../assets/icons/search.svg";
+import sortIcon from "../../assets/icons/sort.svg";
+import clockIcon from "../../assets/icons/clock.svg";
+import repeatIcon from "../../assets/icons/repeat.svg";
+import listIcon from "../../assets/icons/list.svg";
 
 /**
  * Get view title based on active view
@@ -19,23 +19,23 @@ function getViewTitle(state) {
   const activeView = selectActiveView(state);
 
   switch (activeView.type) {
-    case 'inbox':
-      return 'Inbox';
-    case 'today':
-      return 'Today';
-    case 'upcoming':
-      return 'Upcoming';
-    case 'completed':
-      return 'Completed';
-    case 'project':
+    case "inbox":
+      return "Inbox";
+    case "today":
+      return "Today";
+    case "upcoming":
+      return "Upcoming";
+    case "completed":
+      return "Completed";
+    case "project":
       const project = selectProjectById(state, activeView.projectId);
-      return project ? project.name : 'Unknown Project';
-    case 'tag':
+      return project ? project.name : "Unknown Project";
+    case "tag":
       return `#${activeView.tag}`;
-    case 'search':
+    case "search":
       return `Search: "${activeView.q}"`;
     default:
-      return 'All Tasks';
+      return "All Tasks";
   }
 }
 
@@ -50,23 +50,23 @@ function getPriorityClass(priority) {
  * Render a due date badge
  */
 function renderDueDateBadge(dueDate) {
-  if (!dueDate) return '';
+  if (!dueDate) return "";
 
-  const date = new Date(dueDate + 'T00:00:00');
+  const date = new Date(dueDate + "T00:00:00");
   const isPastDue = isPast(date) && !isToday(date);
   const isTodayDue = isToday(date);
 
-  let badgeClass = 'task-badge task-badge--due';
-  if (isPastDue) badgeClass += ' task-badge--overdue';
-  if (isTodayDue) badgeClass += ' task-badge--today';
+  let badgeClass = "task-badge task-badge--due";
+  if (isPastDue) badgeClass += " task-badge--overdue";
+  if (isTodayDue) badgeClass += " task-badge--today";
 
   let displayText;
   if (isTodayDue) {
-    displayText = 'Today';
+    displayText = "Today";
   } else if (isPastDue) {
-    displayText = format(date, 'MMM d');
+    displayText = format(date, "MMM d");
   } else {
-    displayText = format(date, 'MMM d');
+    displayText = format(date, "MMM d");
   }
 
   return `
@@ -81,13 +81,18 @@ function renderDueDateBadge(dueDate) {
  * Render a recurrence badge
  */
 function renderRecurrenceBadge(recurrenceRule) {
-  if (!recurrenceRule) return '';
+  if (!recurrenceRule) return "";
 
-  const { frequency } = recurrenceRule;
+  const freq = recurrenceRule.freq;
+  if (!freq) return "";
+
+  // Capitalize first letter for display
+  const displayText = freq.charAt(0).toUpperCase() + freq.slice(1);
+
   return `
     <span class="task-badge task-badge--recurrence">
       <img src="${repeatIcon}" alt="" class="task-badge__icon" />
-      ${frequency}
+      ${displayText}
     </span>
   `;
 }
@@ -96,22 +101,26 @@ function renderRecurrenceBadge(recurrenceRule) {
  * Render tag chips
  */
 function renderTags(tags) {
-  if (!tags || tags.length === 0) return '';
+  if (!tags || tags.length === 0) return "";
 
-  return tags.map(tag => `
+  return tags
+    .map(
+      (tag) => `
     <span class="task-tag task-tag--${tag.toLowerCase()}" data-tag="${tag}">
       ${tag}
     </span>
-  `).join('');
+  `,
+    )
+    .join("");
 }
 
 /**
  * Render checklist progress
  */
 function renderChecklistProgress(checklist) {
-  if (!checklist || checklist.length === 0) return '';
+  if (!checklist || checklist.length === 0) return "";
 
-  const completed = checklist.filter(item => item.done).length;
+  const completed = checklist.filter((item) => item.done).length;
   const total = checklist.length;
 
   return `
@@ -125,22 +134,23 @@ function renderChecklistProgress(checklist) {
 /**
  * Render a single task row
  */
-function renderTaskRow(todo) {
-  const completedClass = todo.done ? 'task-row--completed' : '';
+function renderTaskRow(todo, selectedTodoId) {
+  const completedClass = todo.done ? "task-row--completed" : "";
+  const selectedClass = selectedTodoId === todo.id ? "task-row--selected" : "";
   const priorityClass = getPriorityClass(todo.priority);
 
   return `
     <div
-      class="task-row ${completedClass}"
+      class="task-row ${completedClass} ${selectedClass}"
       data-todo-id="${todo.id}"
       data-action="select-todo"
     >
       <div
-        class="task-checkbox ${todo.done ? 'task-checkbox--checked' : ''}"
+        class="task-checkbox ${todo.done ? "task-checkbox--checked" : ""}"
         data-action="toggle-todo"
         data-todo-id="${todo.id}"
       >
-        ${todo.done ? '<span class="task-checkbox__check">✓</span>' : ''}
+        ${todo.done ? '<span class="task-checkbox__check">✓</span>' : ""}
       </div>
 
       <div class="task-content">
@@ -182,11 +192,13 @@ export function renderList(state) {
   const viewTitle = getViewTitle(state);
   const activeView = selectActiveView(state);
   const todos = selectTodosForActiveView(state);
+  const selectedTodoId = state.selectedTodoId;
 
   // For completed view, show completed tasks; for others, show active tasks
-  const displayTodos = activeView.type === 'completed'
-    ? todos.filter(t => t.done)
-    : todos.filter(t => !t.done);
+  const displayTodos =
+    activeView.type === "completed"
+      ? todos.filter((t) => t.done)
+      : todos.filter((t) => !t.done);
   const hasTodos = displayTodos.length > 0;
 
   return `
@@ -213,12 +225,12 @@ export function renderList(state) {
           class="list-search__input"
           placeholder="Search tasks..."
           data-action="search"
-          value="${activeView.type === 'search' ? activeView.q : ''}"
+          value="${activeView.type === "search" ? activeView.q : ""}"
         />
       </div>
 
       <div class="list-tasks">
-        ${hasTodos ? displayTodos.map(todo => renderTaskRow(todo)).join('') : renderEmptyState(viewTitle)}
+        ${hasTodos ? displayTodos.map((todo) => renderTaskRow(todo, selectedTodoId)).join("") : renderEmptyState(viewTitle)}
       </div>
     </div>
   `;

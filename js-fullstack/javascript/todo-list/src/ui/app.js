@@ -1,6 +1,7 @@
 import { store } from "../app/store.js";
 import { renderSidebar } from "./render/sidebar.js";
 import { renderList } from "./render/list.js";
+import { renderDetails } from "./render/details.js";
 import { bindEvents } from "./bindEvents.js";
 import { initTheme } from "./theme.js";
 
@@ -16,9 +17,24 @@ function mountList() {
   mainContainer.innerHTML = listHTML;
 }
 
+function mountDetails() {
+  const detailsContainer = document.getElementById("details");
+  const state = store.getState();
+
+  // Only show details panel if a task is selected
+  if (state.selectedTodoId) {
+    detailsContainer.style.display = "block";
+    const detailsHTML = renderDetails(state);
+    detailsContainer.innerHTML = detailsHTML;
+  } else {
+    detailsContainer.style.display = "none";
+  }
+}
+
 function render() {
   mountSidebar();
   mountList();
+  mountDetails();
 }
 
 export function initApp() {

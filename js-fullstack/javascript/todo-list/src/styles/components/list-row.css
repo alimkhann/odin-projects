@@ -167,7 +167,9 @@
 }
 
 .task-row--selected {
-  background: var(--color-bg-active);
+  background: var(--color-primary-light);
+  border-left: 3px solid var(--color-primary);
+  padding-left: calc(var(--spacing-lg) - 3px);
 }
 
 .task-row--completed {
@@ -281,9 +283,9 @@
 }
 
 .task-badge--due {
-  background: var(--color-bg-hover);
-  border-color: var(--color-border-default);
-  color: var(--color-text-secondary);
+  background: #eff6ff;
+  border-color: #3b82f6;
+  color: #3b82f6;
 }
 
 .task-badge--today {
@@ -305,9 +307,9 @@
 }
 
 .task-badge--checklist {
-  background: var(--color-bg-hover);
-  border-color: var(--color-border-default);
-  color: var(--color-text-secondary);
+  background: #f0fdf4;
+  border-color: #10b981;
+  color: #10b981;
 }
 
 /* Task Tags */
