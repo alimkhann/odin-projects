@@ -6,29 +6,33 @@ import {
   selectUpcomingTodos,
   selectCompletedTodos,
   selectAllTodos,
-} from '../../app/services/queries.js';
+} from "../../app/services/queries.js";
 
-import logoIcon from '../../assets/logo/logo.svg';
-import inboxIcon from '../../assets/icons/inbox.svg';
-import calendarIcon from '../../assets/icons/calendar.svg';
-import upcomingIcon from '../../assets/icons/upcoming.svg';
-import checkmarkIcon from '../../assets/icons/checkmark.svg';
-import folderIcon from '../../assets/icons/folder.svg';
-import plusIcon from '../../assets/icons/plus.svg';
-import settingsIcon from '../../assets/icons/settings.svg';
+import logoIcon from "../../assets/logo/logo.svg";
+import inboxIcon from "../../assets/icons/inbox.svg";
+import calendarIcon from "../../assets/icons/calendar.svg";
+import upcomingIcon from "../../assets/icons/upcoming.svg";
+import checkmarkIcon from "../../assets/icons/checkmark.svg";
+import folderIcon from "../../assets/icons/folder.svg";
+import plusIcon from "../../assets/icons/plus.svg";
+import settingsIcon from "../../assets/icons/settings.svg";
+import ellipsisIcon from "../../assets/icons/ellipsis-vertical.svg";
+import pencilIcon from "../../assets/icons/pencil.svg";
+import trashIcon from "../../assets/icons/trash.svg";
 
 /**
  * Get count for a smart view
  */
 function getSmartViewCount(state, viewType) {
   switch (viewType) {
-    case 'inbox':
-      return selectTodosForProject(state, 'p_inbox').filter(t => !t.done).length;
-    case 'today':
-      return selectTodayTodos(state).filter(t => !t.done).length;
-    case 'upcoming':
-      return selectUpcomingTodos(state).filter(t => !t.done).length;
-    case 'completed':
+    case "inbox":
+      return selectTodosForProject(state, "p_inbox").filter((t) => !t.done)
+        .length;
+    case "today":
+      return selectTodayTodos(state).filter((t) => !t.done).length;
+    case "upcoming":
+      return selectUpcomingTodos(state).filter((t) => !t.done).length;
+    case "completed":
       return selectCompletedTodos(state).length;
     default:
       return 0;
@@ -39,14 +43,16 @@ function getSmartViewCount(state, viewType) {
  * Get count for a project
  */
 function getProjectCount(state, projectId) {
-  return selectTodosForProject(state, projectId).filter(t => !t.done).length;
+  return selectTodosForProject(state, projectId).filter((t) => !t.done).length;
 }
 
 /**
  * Render a smart view item
  */
 function renderSmartView(view, icon, count, isActive) {
-  const activeClass = isActive ? 'sidebar-item--active' : '';
+  const activeClass = isActive ? "sidebar-item--active" : "";
+  const countMarkup =
+    count > 0 ? `<span class="sidebar-item__count">${count}</span>` : "";
 
   return `
     <div
@@ -56,7 +62,7 @@ function renderSmartView(view, icon, count, isActive) {
     >
       <img src="${icon}" alt="" class="sidebar-item__icon" />
       <span class="sidebar-item__text">${view.charAt(0).toUpperCase() + view.slice(1)}</span>
-      <span class="sidebar-item__count">${count}</span>
+      ${countMarkup}
     </div>
   `;
 }
@@ -65,18 +71,42 @@ function renderSmartView(view, icon, count, isActive) {
  * Render a project item
  */
 function renderProject(project, count, isActive) {
-  const activeClass = isActive ? 'sidebar-item--active' : '';
+  const activeClass = isActive ? "sidebar-item--active" : "";
+  const countMarkup =
+    count > 0 ? `<span class="sidebar-item__count">${count}</span>` : "";
 
   return `
-    <div
-      class="sidebar-item ${activeClass}"
-      data-action="set-view"
-      data-view="project"
-      data-project-id="${project.id}"
-    >
-      <img src="${folderIcon}" alt="" class="sidebar-item__icon" />
-      <span class="sidebar-item__text">${project.name}</span>
-      <span class="sidebar-item__count">${count}</span>
+    <div class="project-row">
+      <div
+        class="sidebar-item ${activeClass}"
+        data-action="set-view"
+        data-view="project"
+        data-project-id="${project.id}"
+      >
+        <img src="${folderIcon}" alt="" class="sidebar-item__icon" />
+        <span class="sidebar-item__text">${project.name}</span>
+        ${countMarkup}
+        <div class="project-menu">
+          <button
+            class="project-menu-btn"
+            data-action="toggle-project-menu"
+            data-project-id="${project.id}"
+            aria-label="Project options"
+          >
+            <img src="${ellipsisIcon}" alt="" />
+          </button>
+          <div class="project-menu-dropdown" data-project-id="${project.id}">
+            <button class="project-menu-item" data-action="rename-project" data-project-id="${project.id}">
+              <img class="project-menu-item__icon" src="${pencilIcon}" alt="" />
+              Rename
+            </button>
+            <button class="project-menu-item project-menu-item--danger" data-action="delete-project" data-project-id="${project.id}">
+              <img class="project-menu-item__icon" src="${trashIcon}" alt="" />
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -88,26 +118,47 @@ export function renderSidebar(state) {
   const activeView = selectActiveView(state);
   const projects = selectProjects(state);
 
-  const inboxCount = getSmartViewCount(state, 'inbox');
-  const todayCount = getSmartViewCount(state, 'today');
-  const upcomingCount = getSmartViewCount(state, 'upcoming');
-  const completedCount = getSmartViewCount(state, 'completed');
+  const inboxCount = getSmartViewCount(state, "inbox");
+  const todayCount = getSmartViewCount(state, "today");
+  const upcomingCount = getSmartViewCount(state, "upcoming");
+  const completedCount = getSmartViewCount(state, "completed");
 
   const smartViews = [
-    renderSmartView('inbox', inboxIcon, inboxCount, activeView.type === 'inbox'),
-    renderSmartView('today', calendarIcon, todayCount, activeView.type === 'today'),
-    renderSmartView('upcoming', upcomingIcon, upcomingCount, activeView.type === 'upcoming'),
-    renderSmartView('completed', checkmarkIcon, completedCount, activeView.type === 'completed'),
-  ].join('');
+    renderSmartView(
+      "inbox",
+      inboxIcon,
+      inboxCount,
+      activeView.type === "inbox",
+    ),
+    renderSmartView(
+      "today",
+      calendarIcon,
+      todayCount,
+      activeView.type === "today",
+    ),
+    renderSmartView(
+      "upcoming",
+      upcomingIcon,
+      upcomingCount,
+      activeView.type === "upcoming",
+    ),
+    renderSmartView(
+      "completed",
+      checkmarkIcon,
+      completedCount,
+      activeView.type === "completed",
+    ),
+  ].join("");
 
   const projectItems = projects
-    .filter(p => p.id !== 'p_inbox')
-    .map(project => {
+    .filter((p) => p.id !== "p_inbox")
+    .map((project) => {
       const count = getProjectCount(state, project.id);
-      const isActive = activeView.type === 'project' && activeView.projectId === project.id;
+      const isActive =
+        activeView.type === "project" && activeView.projectId === project.id;
       return renderProject(project, count, isActive);
     })
-    .join('');
+    .join("");
 
   return `
     <div class="sidebar">

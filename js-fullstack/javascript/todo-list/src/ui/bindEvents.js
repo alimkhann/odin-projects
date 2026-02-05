@@ -10,7 +10,11 @@ import {
   updateTodo,
   deleteTodo,
 } from "../app/services/todos.js";
-import { createProject } from "../app/services/projects.js";
+import {
+  createProject,
+  renameProject,
+  deleteProject,
+} from "../app/services/projects.js";
 
 /**
  * Handle sidebar events
@@ -46,6 +50,89 @@ function handleSidebarClick(store, event) {
     case "open-settings-modal": {
       // Placeholder for Phase 4
       alert("Settings modal will be implemented in Phase 4");
+      break;
+    }
+
+    case "toggle-project-menu": {
+      const projectId = target.dataset.projectId;
+      const dropdown = document.querySelector(
+        `.project-menu-dropdown[data-project-id="${projectId}"]`,
+      );
+      const button = target.closest(".project-menu-btn");
+      if (dropdown) {
+        // Close all other dropdowns
+        document
+          .querySelectorAll(".project-menu-dropdown.open")
+          .forEach((d) => {
+            if (d !== dropdown) {
+              d.classList.remove("open");
+              const otherButton = document.querySelector(
+                `.project-menu-btn[data-project-id="${d.dataset.projectId}"]`,
+              );
+              if (otherButton) otherButton.classList.remove("is-open");
+            }
+          });
+        dropdown.classList.toggle("open");
+        if (button)
+          button.classList.toggle(
+            "is-open",
+            dropdown.classList.contains("open"),
+          );
+      }
+      event.stopPropagation();
+      break;
+    }
+
+    case "rename-project": {
+      const projectId = target.dataset.projectId;
+      const state = store.getState();
+      const project = state.projects.find((p) => p.id === projectId);
+
+      if (project) {
+        const newName = prompt("Enter new project name:", project.name);
+        if (newName && newName.trim() && newName.trim() !== project.name) {
+          renameProject(store, projectId, newName.trim());
+        }
+      }
+
+      // Close dropdown
+      document.querySelectorAll(".project-menu-dropdown.open").forEach((d) => {
+        d.classList.remove("open");
+        const btn = document.querySelector(
+          `.project-menu-btn[data-project-id="${d.dataset.projectId}"]`,
+        );
+        if (btn) btn.classList.remove("is-open");
+      });
+      break;
+    }
+
+    case "delete-project": {
+      const projectId = target.dataset.projectId;
+      const state = store.getState();
+      const project = state.projects.find((p) => p.id === projectId);
+
+      if (project) {
+        const firstConfirm = confirm(
+          `Are you sure you want to delete the project "${project.name}"?`,
+        );
+        if (firstConfirm) {
+          const secondConfirm = confirm(
+            `This will permanently delete "${project.name}" and all its tasks. Continue?`,
+          );
+          if (secondConfirm) {
+            deleteProject(store, projectId);
+          }
+        }
+      }
+
+      // Close dropdown
+      document.querySelectorAll(".project-menu-dropdown.open").forEach((d) => {
+        d.classList.remove("open");
+        const btn = document.querySelector(
+          `.project-menu-btn[data-project-id="${d.dataset.projectId}"]`,
+        );
+        if (btn) btn.classList.remove("is-open");
+      });
       break;
     }
   }
@@ -240,9 +327,17 @@ function handleDetailsInput(store, event) {
     }
 
     case "delete-todo": {
-      if (confirm("Are you sure you want to delete this task?")) {
-        deleteTodo(store, todoId);
-        store.dispatch(deselectTodo());
+      const firstConfirm = confirm(
+        "Are you sure you want to delete this task?",
+      );
+      if (firstConfirm) {
+        const secondConfirm = confirm(
+          "This will permanently delete the task. Continue?",
+        );
+        if (secondConfirm) {
+          deleteTodo(store, todoId);
+          store.dispatch(deselectTodo());
+        }
       }
       break;
     }
@@ -349,6 +444,22 @@ export function bindEvents(store) {
         );
         if (addBtn) addBtn.click();
       }
+    }
+  });
+
+  // Close project menus when clicking outside
+  document.addEventListener("click", (e) => {
+    const isMenuBtn = e.target.closest(".project-menu-btn");
+    const isMenuDropdown = e.target.closest(".project-menu-dropdown");
+
+    if (!isMenuBtn && !isMenuDropdown) {
+      document.querySelectorAll(".project-menu-dropdown.open").forEach((d) => {
+        d.classList.remove("open");
+        const btn = document.querySelector(
+          `.project-menu-btn[data-project-id="${d.dataset.projectId}"]`,
+        );
+        if (btn) btn.classList.remove("is-open");
+      });
     }
   });
 
