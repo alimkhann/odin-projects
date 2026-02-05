@@ -1,4 +1,9 @@
-import { setActiveView, selectTodo, deselectTodo } from "../app/actions.js";
+import {
+  setActiveView,
+  selectTodo,
+  deselectTodo,
+  setFilter,
+} from "../app/actions.js";
 import {
   createTodo,
   toggleTodoDone,
@@ -112,6 +117,16 @@ function handleListClick(store, event) {
     case "select-todo": {
       const todoId = target.dataset.todoId;
       store.dispatch(selectTodo(todoId));
+      break;
+    }
+
+    case "cycle-filter": {
+      const state = store.getState();
+      const currentFilter = state.filter || "default";
+      const filters = ["default", "due-date", "priority"];
+      const currentIndex = filters.indexOf(currentFilter);
+      const nextIndex = (currentIndex + 1) % filters.length;
+      store.dispatch(setFilter(filters[nextIndex]));
       break;
     }
 

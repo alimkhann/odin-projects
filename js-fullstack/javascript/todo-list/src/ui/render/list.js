@@ -190,6 +190,31 @@ function renderEmptyState(viewTitle) {
 }
 
 /**
+ * Apply filters to todos
+ */
+function applyFilters(todos, filter) {
+  if (filter === "default") {
+    return todos;
+  }
+
+  if (filter === "due-date") {
+    return todos
+      .filter((t) => t.dueDate)
+      .sort((a, b) => {
+        const dateA = new Date(a.dueDate);
+        const dateB = new Date(b.dueDate);
+        return dateA - dateB;
+      });
+  }
+
+  if (filter === "priority") {
+    return todos.sort((a, b) => a.priority - b.priority);
+  }
+
+  return todos;
+}
+
+/**
  * Main list render function
  */
 export function renderList(state) {
@@ -197,13 +222,24 @@ export function renderList(state) {
   const activeView = selectActiveView(state);
   const todos = selectTodosForActiveView(state);
   const selectedTodoId = state.selectedTodoId;
+  const currentFilter = state.filter || "default";
 
   // For completed view, show completed tasks; for others, show active tasks
-  const displayTodos =
+  let displayTodos =
     activeView.type === "completed"
       ? todos.filter((t) => t.done)
       : todos.filter((t) => !t.done);
+
+  // Apply current filter
+  displayTodos = applyFilters(displayTodos, currentFilter);
+
   const hasTodos = displayTodos.length > 0;
+
+  const getFilterLabel = (filter) => {
+    if (filter === "due-date") return "Due Date";
+    if (filter === "priority") return "Priority";
+    return "Default";
+  };
 
   return `
     <div class="list">
@@ -215,9 +251,9 @@ export function renderList(state) {
             <img src="${plusIcon}" alt="" class="btn__icon" />
             New Task
           </button>
-          <button class="btn btn--secondary" data-action="toggle-sort">
+          <button class="btn btn--secondary" data-action="cycle-filter">
             <img src="${sortIcon}" alt="" class="btn__icon" />
-            Default
+            ${currentFilter === "due-date" ? "Due Date" : currentFilter === "priority" ? "Priority" : "Default"}
           </button>
         </div>
       </div>

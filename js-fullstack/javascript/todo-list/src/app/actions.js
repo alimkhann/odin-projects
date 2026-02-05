@@ -12,6 +12,7 @@ export const ActionTypes = {
   PROJECT_RENAMED: "PROJECT_RENAMED",
   PROJECT_DELETED: "PROJECT_DELETED",
   SET_ACTIVE_VIEW: "SET_ACTIVE_VIEW",
+  SET_FILTER: "SET_FILTER",
 };
 
 export function createTodo(todoData, projectId = "p_inbox") {
@@ -73,5 +74,12 @@ export function selectTodo(todoId) {
 export function deselectTodo() {
   return {
     type: ActionTypes.TODO_DESELECTED,
+  };
+}
+
+export function setFilter(filter) {
+  return {
+    type: ActionTypes.SET_FILTER,
+    payload: filter,
   };
 }
