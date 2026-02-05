@@ -70,3 +70,20 @@ export function deleteProject(store, projectId) {
     });
   }
 }
+
+/**
+ * Restore a previously deleted project and its todos
+ * @param {Object} store - The store instance
+ * @param {Object} projectData - Serialized project data
+ * @param {Object[]} todos - Serialized todos belonging to the project
+ */
+export function restoreProject(store, projectData, todos = []) {
+  if (!projectData || !projectData.id) {
+    throw new Error("Project data is required");
+  }
+
+  store.dispatch({
+    type: ActionTypes.PROJECT_RESTORED,
+    payload: { projectData, todos },
+  });
+}

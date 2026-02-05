@@ -9,12 +9,15 @@ import {
   toggleTodoDone,
   updateTodo,
   deleteTodo,
+  restoreTodo,
 } from "../app/services/todos.js";
 import {
   createProject,
   renameProject,
   deleteProject,
+  restoreProject,
 } from "../app/services/projects.js";
+import { showToast } from "./toast.js";
 
 /**
  * Handle sidebar events
@@ -110,6 +113,11 @@ function handleSidebarClick(store, event) {
       const projectId = target.dataset.projectId;
       const state = store.getState();
       const project = state.projects.find((p) => p.id === projectId);
+      const projectTodos = project
+        ? project.todoIds
+            .map((todoId) => state.todos[todoId]?.toJSON())
+            .filter(Boolean)
+        : [];
 
       if (project) {
         const firstConfirm = confirm(
@@ -121,6 +129,14 @@ function handleSidebarClick(store, event) {
           );
           if (secondConfirm) {
             deleteProject(store, projectId);
+            showToast({
+              message: "Project deleted",
+              type: "info",
+              actionLabel: "Undo",
+              onAction: () => {
+                restoreProject(store, project.toJSON(), projectTodos);
+              },
+            });
           }
         }
       }
@@ -335,8 +351,27 @@ function handleDetailsInput(store, event) {
           "This will permanently delete the task. Continue?",
         );
         if (secondConfirm) {
+          const state = store.getState();
+          const todo = state.todos[todoId];
+          const owningProject =
+            state.projects.find((project) =>
+              project.todoIds.includes(todoId),
+            ) ?? null;
+          const projectId = owningProject ? owningProject.id : "p_inbox";
+
           deleteTodo(store, todoId);
           store.dispatch(deselectTodo());
+
+          if (todo) {
+            showToast({
+              message: "Task deleted",
+              type: "info",
+              actionLabel: "Undo",
+              onAction: () => {
+                restoreTodo(store, todo.toJSON(), projectId);
+              },
+            });
+          }
         }
       }
       break;

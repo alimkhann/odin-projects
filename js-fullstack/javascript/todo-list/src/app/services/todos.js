@@ -92,6 +92,23 @@ export function deleteTodo(store, id) {
 }
 
 /**
+ * Restore a previously deleted todo
+ * @param {Object} store - The store instance
+ * @param {Object} todoData - Serialized todo data
+ * @param {string} projectId - Project ID to restore into
+ */
+export function restoreTodo(store, todoData, projectId) {
+  if (!todoData || !todoData.id) {
+    throw new Error("Todo data is required");
+  }
+
+  store.dispatch({
+    type: ActionTypes.TODO_RESTORED,
+    payload: { todoData, projectId },
+  });
+}
+
+/**
  * Reorder todos within a project (for drag & drop)
  * @param {Object} store - The store instance
  * @param {string} projectId - Project ID

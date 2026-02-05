@@ -4,6 +4,9 @@ import { Project } from "../domain/project.js";
 
 export function reducer(state, action) {
   switch (action.type) {
+    case ActionTypes.INIT: {
+      return action.payload;
+    }
     case ActionTypes.TODO_CREATED: {
       const { todoData, projectId } = action.payload;
       const newTodo = new Todo(todoData);
@@ -137,6 +140,33 @@ export function reducer(state, action) {
       };
     }
 
+    case ActionTypes.TODO_RESTORED: {
+      const { todoData, projectId } = action.payload;
+      const restoredTodo = Todo.fromJSON(todoData);
+
+      const targetProjectId = state.projects.some((p) => p.id === projectId)
+        ? projectId
+        : "p_inbox";
+
+      const updatedProjects = state.projects.map((project) => {
+        if (project.id === targetProjectId) {
+          const clonedProject = Project.fromJSON(project.toJSON());
+          clonedProject.addTodoId(restoredTodo.id);
+          return clonedProject;
+        }
+        return project;
+      });
+
+      return {
+        ...state,
+        todos: {
+          ...state.todos,
+          [restoredTodo.id]: restoredTodo,
+        },
+        projects: updatedProjects,
+      };
+    }
+
     case ActionTypes.PROJECT_CREATED: {
       const newProject = new Project(action.payload);
       return {
@@ -180,6 +210,30 @@ export function reducer(state, action) {
         ...state,
         projects: remainingProjects,
         todos: remainingTodos,
+      };
+    }
+
+    case ActionTypes.PROJECT_RESTORED: {
+      const { projectData, todos } = action.payload;
+      if (state.projects.some((p) => p.id === projectData.id)) {
+        return state;
+      }
+
+      const restoredProject = Project.fromJSON(projectData);
+      const restoredTodosMap = Object.fromEntries(
+        (todos ?? []).map((todoData) => {
+          const todo = Todo.fromJSON(todoData);
+          return [todo.id, todo];
+        }),
+      );
+
+      return {
+        ...state,
+        projects: [...state.projects, restoredProject],
+        todos: {
+          ...state.todos,
+          ...restoredTodosMap,
+        },
       };
     }
 

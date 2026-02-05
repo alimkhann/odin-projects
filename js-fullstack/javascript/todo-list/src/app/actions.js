@@ -4,6 +4,7 @@ export const ActionTypes = {
   TODO_UPDATED: "TODO_UPDATED",
   TODO_TOGGLED: "TODO_TOGGLED",
   TODO_DELETED: "TODO_DELETED",
+  TODO_RESTORED: "TODO_RESTORED",
   TODO_REORDERED: "TODO_REORDERED",
   TODO_MOVED: "TODO_MOVED",
   TODO_SELECTED: "TODO_SELECTED",
@@ -11,9 +12,17 @@ export const ActionTypes = {
   PROJECT_CREATED: "PROJECT_CREATED",
   PROJECT_RENAMED: "PROJECT_RENAMED",
   PROJECT_DELETED: "PROJECT_DELETED",
+  PROJECT_RESTORED: "PROJECT_RESTORED",
   SET_ACTIVE_VIEW: "SET_ACTIVE_VIEW",
   SET_FILTER: "SET_FILTER",
 };
+
+export function initState(state) {
+  return {
+    type: ActionTypes.INIT,
+    payload: state,
+  };
+}
 
 export function createTodo(todoData, projectId = "p_inbox") {
   return {
