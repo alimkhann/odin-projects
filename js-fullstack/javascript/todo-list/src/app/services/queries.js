@@ -90,6 +90,9 @@ export function selectTodosForActiveView(state) {
   const view = selectActiveView(state);
 
   switch (view.type) {
+    case "inbox":
+      return selectTodosForProject(state, "p_inbox");
+
     case "project":
       return selectTodosForProject(state, view.projectId);
 
