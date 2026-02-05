@@ -7,7 +7,7 @@ export function reducer(state, action) {
     case ActionTypes.TODO_CREATED: {
       const { todoData, projectId } = action.payload;
       const newTodo = new Todo(todoData);
-      
+
       // Add todo to target project
       const updatedProjects = state.projects.map((project) => {
         if (project.id === projectId) {
@@ -17,7 +17,7 @@ export function reducer(state, action) {
         }
         return project;
       });
-      
+
       return {
         ...state,
         todos: {
@@ -36,6 +36,11 @@ export function reducer(state, action) {
       const clonedTodo = Todo.fromJSON(existingTodo.toJSON());
 
       Object.entries(changes).forEach(([key, value]) => {
+        if (key === "title") {
+          clonedTodo.rename(value);
+          return;
+        }
+
         const setter = `set${key.charAt(0).toUpperCase()}${key.slice(1)}`;
         if (typeof clonedTodo[setter] === "function") {
           clonedTodo[setter](value);
@@ -69,22 +74,16 @@ export function reducer(state, action) {
     }
 
     case ActionTypes.TODO_REORDERED: {
-      const newOrder = action.payload; // Array of todo IDs in new order
+      const { projectId, todoIds } = action.payload;
 
-      // Create a mapping of todo IDs to their new indices
-      const orderMap = new Map(newOrder.map((id, index) => [id, index]));
-
-      // Sort todos in each project based on the new order
+      // Reorder only the specified project
       const updatedProjects = state.projects.map((project) => {
-        const sortedTodoIds = [...project.todoIds].sort((a, b) => {
-          const indexA = orderMap.has(a) ? orderMap.get(a) : Infinity;
-          const indexB = orderMap.has(b) ? orderMap.get(b) : Infinity;
-          return indexA - indexB;
-        });
-
-        const clonedProject = Project.fromJSON(project.toJSON());
-        clonedProject.reorderTodoIds(sortedTodoIds);
-        return clonedProject;
+        if (project.id === projectId) {
+          const clonedProject = Project.fromJSON(project.toJSON());
+          clonedProject.reorderTodoIds(todoIds);
+          return clonedProject;
+        }
+        return project;
       });
 
       return {
@@ -119,6 +118,44 @@ export function reducer(state, action) {
       return {
         ...state,
         projects: [...state.projects, newProject],
+      };
+    }
+
+    case ActionTypes.PROJECT_RENAMED: {
+      const { id, name } = action.payload;
+
+      const updatedProjects = state.projects.map((project) => {
+        if (project.id === id) {
+          const clonedProject = Project.fromJSON(project.toJSON());
+          clonedProject.rename(name);
+          return clonedProject;
+        }
+        return project;
+      });
+
+      return {
+        ...state,
+        projects: updatedProjects,
+      };
+    }
+
+    case ActionTypes.PROJECT_DELETED: {
+      const { id } = action.payload;
+
+      const remainingProjects = state.projects.filter((p) => p.id !== id);
+
+      const deletedProject = state.projects.find((p) => p.id === id);
+      const todoIdsToDelete = deletedProject ? deletedProject.todoIds : [];
+
+      const remainingTodos = { ...state.todos };
+      todoIdsToDelete.forEach((todoId) => {
+        delete remainingTodos[todoId];
+      });
+
+      return {
+        ...state,
+        projects: remainingProjects,
+        todos: remainingTodos,
       };
     }
 
