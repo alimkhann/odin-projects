@@ -10,6 +10,7 @@ export default merge(common, {
   },
   devtool: "eval-source-map",
   devServer: {
+    port: 3000,
     compress: false,
     hot: true,
     open: true,
