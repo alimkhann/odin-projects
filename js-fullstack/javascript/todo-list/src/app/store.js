@@ -6,6 +6,7 @@ import {
 import { migrateState } from "./persistence/migrate.js";
 import { rehydrateState } from "./persistence/rehydrate.js";
 import { reducer } from "./reducer.js";
+import { debounce } from "./utils/debounce.js";
 
 export function createStore(initialState) {
   let state = initialState;
@@ -56,7 +57,6 @@ function serializeForSave(state) {
   };
 }
 
-
 const rawState = loadStateFromLocalStorage();
 const migratedState = migrateState(rawState);
 const initialState = migratedState
@@ -65,6 +65,11 @@ const initialState = migratedState
 
 export const store = createStore(initialState);
 
-store.subscribe((state) => {
+// Debounced save - waits 300ms after last change before saving
+const debouncedSave = debounce((state) => {
   saveStateToLocalStorage(serializeForSave(state));
+}, 300);
+
+store.subscribe((state) => {
+  debouncedSave(state);
 });
