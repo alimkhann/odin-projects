@@ -23,6 +23,8 @@
 .sidebar-logo__icon {
   width: 24px;
   height: 24px;
+  filter: brightness(0) saturate(100%) invert(46%) sepia(95%) saturate(2479%)
+    hue-rotate(201deg) brightness(99%) contrast(101%);
 }
 
 .sidebar-logo__text {
@@ -100,6 +102,18 @@
 
 .sidebar-item--active .sidebar-item__icon {
   opacity: 1;
+  filter: brightness(0) saturate(100%) invert(46%) sepia(95%) saturate(2479%)
+    hue-rotate(201deg) brightness(99%) contrast(101%);
+}
+
+/* Invert icons in dark theme */
+[data-theme="dark"] .sidebar-item__icon {
+  filter: invert(1);
+}
+
+[data-theme="dark"] .sidebar-item--active .sidebar-item__icon {
+  filter: invert(1) brightness(0) saturate(100%) invert(46%) sepia(95%)
+    saturate(2479%) hue-rotate(201deg) brightness(99%) contrast(101%);
 }
 
 .sidebar-item__text {
@@ -154,6 +168,11 @@
   height: 16px;
 }
 
+/* Invert plus icon on dark theme */
+[data-theme="dark"] .sidebar-add-btn__icon {
+  filter: invert(1);
+}
+
 /* Projects List */
 .sidebar-projects {
   display: flex;
@@ -194,6 +213,11 @@
 .sidebar-settings-btn__icon {
   width: 18px;
   height: 18px;
+}
+
+/* Invert settings icon in dark theme */
+[data-theme="dark"] .sidebar-settings-btn__icon {
+  filter: invert(1);
 }
 
 .sidebar-settings-btn__text {

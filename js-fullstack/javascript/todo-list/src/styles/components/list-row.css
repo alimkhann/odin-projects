@@ -51,6 +51,11 @@
   height: 18px;
 }
 
+/* Invert plus icon on light theme for task creation */
+[data-theme="light"] .btn--primary .btn__icon {
+  filter: invert(1);
+}
+
 .btn--primary {
   background: var(--color-primary);
   color: var(--color-text-inverse);
@@ -70,6 +75,11 @@
   background: var(--color-bg-hover);
 }
 
+/* Invert sort icon in dark theme */
+[data-theme="dark"] .btn--secondary .btn__icon {
+  filter: invert(1);
+}
+
 /* Search Bar */
 .list-search {
   position: relative;
@@ -87,6 +97,11 @@
   height: 18px;
   opacity: 0.5;
   pointer-events: none;
+}
+
+/* Invert search icon in dark theme */
+[data-theme="dark"] .list-search__icon {
+  filter: invert(1);
 }
 
 .list-search__input {

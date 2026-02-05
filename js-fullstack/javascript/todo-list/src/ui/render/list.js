@@ -182,9 +182,9 @@ export function renderList(state) {
   const viewTitle = getViewTitle(state);
   const activeView = selectActiveView(state);
   const todos = selectTodosForActiveView(state);
-  
+
   // For completed view, show completed tasks; for others, show active tasks
-  const displayTodos = activeView.type === 'completed' 
+  const displayTodos = activeView.type === 'completed'
     ? todos.filter(t => t.done)
     : todos.filter(t => !t.done);
   const hasTodos = displayTodos.length > 0;
@@ -211,7 +211,7 @@ export function renderList(state) {
         <input
           type="text"
           class="list-search__input"
-          placeholder="Search tasks... (press Enter to search)"
+          placeholder="Search tasks..."
           data-action="search"
           value="${activeView.type === 'search' ? activeView.q : ''}"
         />
