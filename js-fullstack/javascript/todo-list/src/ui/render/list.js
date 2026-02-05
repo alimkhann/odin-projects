@@ -11,7 +11,7 @@ import sortIcon from "../../assets/icons/sort.svg";
 import clockIcon from "../../assets/icons/clock.svg";
 import repeatIcon from "../../assets/icons/repeat.svg";
 import listIcon from "../../assets/icons/list.svg";
-
+import gripIcon from "../../assets/icons/grip-vertical.svg";
 /**
  * Get view title based on active view
  */
@@ -145,6 +145,10 @@ function renderTaskRow(todo, selectedTodoId) {
       data-todo-id="${todo.id}"
       data-action="select-todo"
     >
+      <div class="task-drag-handle">
+        <img src="${gripIcon}" alt="Drag to reorder" class="task-drag-handle__icon" />
+      </div>
+
       <div
         class="task-checkbox ${todo.done ? "task-checkbox--checked" : ""}"
         data-action="toggle-todo"

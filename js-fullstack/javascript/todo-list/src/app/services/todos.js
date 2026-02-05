@@ -120,9 +120,16 @@ export function reorderTodos(store, projectId, todoIds) {
  * @param {string} toProjectId - Destination project ID
  */
 export function moveTodoToProject(store, todoId, fromProjectId, toProjectId) {
-  // This could be implemented as:
-  // 1. Remove from source project
-  // 2. Add to destination project
-  // For now, this is a placeholder for future implementation
-  throw new Error("Not implemented yet");
+  if (!todoId || !fromProjectId || !toProjectId) {
+    throw new Error("Todo ID, from project ID, and to project ID are required");
+  }
+
+  if (fromProjectId === toProjectId) {
+    return; // No need to move if source and destination are the same
+  }
+
+  store.dispatch({
+    type: ActionTypes.TODO_MOVED,
+    payload: { todoId, fromProjectId, toProjectId },
+  });
 }

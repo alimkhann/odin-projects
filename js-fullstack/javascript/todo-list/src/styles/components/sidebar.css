@@ -96,6 +96,13 @@
   color: var(--color-text-inverse);
 }
 
+/* Drag and drop feedback */
+.sidebar-item--drag-over {
+  background: var(--color-bg-hover) !important;
+  box-shadow: inset 0 0 0 2px var(--color-primary);
+  opacity: 0.8;
+}
+
 .sidebar-item__icon {
   width: 18px;
   height: 18px;

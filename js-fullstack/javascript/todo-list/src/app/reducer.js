@@ -92,6 +92,30 @@ export function reducer(state, action) {
       };
     }
 
+    case ActionTypes.TODO_MOVED: {
+      const { todoId, fromProjectId, toProjectId } = action.payload;
+
+      // Remove from source project and add to destination project
+      const updatedProjects = state.projects.map((project) => {
+        const clonedProject = Project.fromJSON(project.toJSON());
+
+        if (project.id === fromProjectId) {
+          clonedProject.removeTodoId(todoId);
+        }
+
+        if (project.id === toProjectId) {
+          clonedProject.addTodoId(todoId);
+        }
+
+        return clonedProject;
+      });
+
+      return {
+        ...state,
+        projects: updatedProjects,
+      };
+    }
+
     case ActionTypes.TODO_DELETED: {
       const { id } = action.payload;
       const { [id]: removed, ...remainingTodos } = state.todos;

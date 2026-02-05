@@ -4,6 +4,7 @@ import { renderList } from "./render/list.js";
 import { renderDetails } from "./render/details.js";
 import { bindEvents } from "./bindEvents.js";
 import { initTheme } from "./theme.js";
+import { initDragAndDrop } from "./dragAndDrop.js";
 
 function mountSidebar() {
   const sidebarContainer = document.getElementById("sidebar");
@@ -35,6 +36,8 @@ function render() {
   mountSidebar();
   mountList();
   mountDetails();
+  // Reinitialize drag and drop after DOM is updated
+  initDragAndDrop(store);
 }
 
 export function initApp() {
