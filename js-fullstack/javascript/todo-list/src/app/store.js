@@ -2,9 +2,9 @@ import { Project } from "../domain/project.js";
 import {
   loadStateFromLocalStorage,
   saveStateToLocalStorage,
-} from "./persistance/storage.js";
-import { migrateState } from "./persistance/migrate.js";
-import { rehydrateState } from "./persistance/rehydrate.js";
+} from "./persistence/storage.js";
+import { migrateState } from "./persistence/migrate.js";
+import { rehydrateState } from "./persistence/rehydrate.js";
 import { reducer } from "./reducer.js";
 
 export function createStore(initialState) {
