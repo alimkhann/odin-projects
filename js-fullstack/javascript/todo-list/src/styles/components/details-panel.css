@@ -405,7 +405,7 @@
   border: none;
   background: transparent;
   border-radius: var(--radius-md);
-  color: var(--color-text-muted);
+  color: var(--color-error);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
@@ -413,8 +413,7 @@
 }
 
 .btn-delete:hover {
-  background: var(--color-bg-hover);
-  color: var(--color-danger);
+  background: rgba(239, 68, 68, 0.08);
 }
 
 .btn-delete__icon {
@@ -422,8 +421,20 @@
   height: 18px;
 }
 
+.btn-delete__icon--danger {
+  filter: invert(41%) sepia(80%) saturate(4880%) hue-rotate(350deg)
+    brightness(94%) contrast(96%);
+}
+
 /* Invert delete icon in dark theme */
 [data-theme="dark"] .btn-delete__icon {
+  filter: invert(41%) sepia(80%) saturate(4880%) hue-rotate(350deg)
+    brightness(94%) contrast(96%);
+}
+
+/* Invert date/time picker icons in dark theme (inside input) */
+[data-theme="dark"] .details-input--date::-webkit-calendar-picker-indicator,
+[data-theme="dark"] .details-input--time::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
 

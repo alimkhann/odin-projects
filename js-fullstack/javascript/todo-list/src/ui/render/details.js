@@ -205,7 +205,7 @@ export function renderDetails(state) {
           data-action="delete-todo"
           data-todo-id="${todo.id}"
         >
-          <img src="${iconTrash}" alt="" class="btn-delete__icon" />
+          <img src="${iconTrash}" alt="" class="btn-delete__icon btn-delete__icon--danger" />
           Delete Task
         </button>
       </div>

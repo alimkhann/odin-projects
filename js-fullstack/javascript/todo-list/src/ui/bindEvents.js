@@ -18,6 +18,11 @@ import {
   restoreProject,
 } from "../app/services/projects.js";
 import { showToast } from "./toast.js";
+import {
+  openProjectModal,
+  openConfirmModal,
+  openSettingsModal,
+} from "./modals.js";
 
 /**
  * Handle sidebar events
@@ -42,17 +47,17 @@ function handleSidebarClick(store, event) {
     }
 
     case "open-new-project-modal": {
-      // For now, use prompt (we'll add modal in Phase 4)
-      const name = prompt("Enter project name:");
-      if (name && name.trim()) {
-        createProject(store, name.trim(), true);
-      }
+      openProjectModal({
+        mode: "create",
+        onSave: (name) => {
+          createProject(store, name.trim(), true);
+        },
+      });
       break;
     }
 
     case "open-settings-modal": {
-      // Placeholder for Phase 4
-      alert("Settings modal will be implemented in Phase 4");
+      openSettingsModal();
       break;
     }
 
@@ -92,10 +97,15 @@ function handleSidebarClick(store, event) {
       const project = state.projects.find((p) => p.id === projectId);
 
       if (project) {
-        const newName = prompt("Enter new project name:", project.name);
-        if (newName && newName.trim() && newName.trim() !== project.name) {
-          renameProject(store, projectId, newName.trim());
-        }
+        openProjectModal({
+          mode: "rename",
+          initialName: project.name,
+          onSave: (name) => {
+            if (name.trim() !== project.name) {
+              renameProject(store, projectId, name.trim());
+            }
+          },
+        });
       }
 
       // Close dropdown
@@ -120,14 +130,12 @@ function handleSidebarClick(store, event) {
         : [];
 
       if (project) {
-        const firstConfirm = confirm(
-          `Are you sure you want to delete the project "${project.name}"?`,
-        );
-        if (firstConfirm) {
-          const secondConfirm = confirm(
-            `This will permanently delete "${project.name}" and all its tasks. Continue?`,
-          );
-          if (secondConfirm) {
+        openConfirmModal({
+          title: "Delete Project?",
+          message: `This will permanently delete "${project.name}" and all its tasks.`,
+          confirmLabel: "Delete",
+          isDanger: true,
+          onConfirm: () => {
             deleteProject(store, projectId);
             showToast({
               message: "Project deleted",
@@ -137,8 +145,8 @@ function handleSidebarClick(store, event) {
                 restoreProject(store, project.toJSON(), projectTodos);
               },
             });
-          }
-        }
+          },
+        });
       }
 
       // Close dropdown
@@ -343,22 +351,21 @@ function handleDetailsInput(store, event) {
     }
 
     case "delete-todo": {
-      const firstConfirm = confirm(
-        "Are you sure you want to delete this task?",
-      );
-      if (firstConfirm) {
-        const secondConfirm = confirm(
-          "This will permanently delete the task. Continue?",
-        );
-        if (secondConfirm) {
-          const state = store.getState();
-          const todo = state.todos[todoId];
-          const owningProject =
-            state.projects.find((project) =>
-              project.todoIds.includes(todoId),
-            ) ?? null;
-          const projectId = owningProject ? owningProject.id : "p_inbox";
+      const state = store.getState();
+      const todo = state.todos[todoId];
+      const owningProject =
+        state.projects.find((project) =>
+          project.todoIds.includes(todoId),
+        ) ?? null;
+      const projectId = owningProject ? owningProject.id : "p_inbox";
+      const taskTitle = todo ? `"${todo.title}"` : "this task";
 
+      openConfirmModal({
+        title: "Delete Task?",
+        message: `This will permanently delete ${taskTitle}.`,
+        confirmLabel: "Delete",
+        isDanger: true,
+        onConfirm: () => {
           deleteTodo(store, todoId);
           store.dispatch(deselectTodo());
 
@@ -372,8 +379,8 @@ function handleDetailsInput(store, event) {
               },
             });
           }
-        }
-      }
+        },
+      });
       break;
     }
   }
