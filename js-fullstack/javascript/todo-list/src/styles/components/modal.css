@@ -206,6 +206,10 @@
   color: #111111;
 }
 
+[data-theme="light"] .settings-pill[data-theme="light"] {
+  color: var(--color-text-secondary);
+}
+
 .settings-divider {
   height: 1px;
   background: var(--color-border-divider);

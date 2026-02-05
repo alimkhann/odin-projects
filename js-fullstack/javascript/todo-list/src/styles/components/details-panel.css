@@ -186,7 +186,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-sm);
-  min-height: 24px;
+  min-height: 8px;
 }
 
 .tag {
@@ -419,11 +419,12 @@
 .btn-delete__icon {
   width: 18px;
   height: 18px;
+  filter: invert(41%) sepia(80%) saturate(4880%) hue-rotate(350deg)
+    brightness(94%) contrast(96%);
 }
 
 .btn-delete__icon--danger {
-  filter: invert(41%) sepia(80%) saturate(4880%) hue-rotate(350deg)
-    brightness(94%) contrast(96%);
+  filter: inherit;
 }
 
 /* Invert delete icon in dark theme */
