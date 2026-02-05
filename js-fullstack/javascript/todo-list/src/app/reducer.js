@@ -166,6 +166,20 @@ export function reducer(state, action) {
       };
     }
 
+    case ActionTypes.TODO_SELECTED: {
+      return {
+        ...state,
+        selectedTodoId: action.payload.id,
+      };
+    }
+
+    case ActionTypes.TODO_DESELECTED: {
+      return {
+        ...state,
+        selectedTodoId: null,
+      };
+    }
+
     default:
       return state;
   }

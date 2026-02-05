@@ -5,6 +5,8 @@ export const ActionTypes = {
   TODO_TOGGLED: "TODO_TOGGLED",
   TODO_DELETED: "TODO_DELETED",
   TODO_REORDERED: "TODO_REORDERED",
+  TODO_SELECTED: "TODO_SELECTED",
+  TODO_DESELECTED: "TODO_DESELECTED",
   PROJECT_CREATED: "PROJECT_CREATED",
   PROJECT_RENAMED: "PROJECT_RENAMED",
   PROJECT_DELETED: "PROJECT_DELETED",
@@ -57,5 +59,18 @@ export function setActiveView(view) {
   return {
     type: ActionTypes.SET_ACTIVE_VIEW,
     payload: view,
+  };
+}
+
+export function selectTodo(todoId) {
+  return {
+    type: ActionTypes.TODO_SELECTED,
+    payload: { id: todoId },
+  };
+}
+
+export function deselectTodo() {
+  return {
+    type: ActionTypes.TODO_DESELECTED,
   };
 }

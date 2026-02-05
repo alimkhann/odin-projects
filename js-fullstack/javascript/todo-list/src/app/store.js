@@ -41,6 +41,7 @@ export function createDefaultState() {
   return {
     schemaVersion: 1,
     activeView: { type: "project", projectId: "p_inbox" },
+    selectedTodoId: null,
     projects: [inbox],
     todos: {},
   };
