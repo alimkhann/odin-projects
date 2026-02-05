@@ -1,15 +1,11 @@
-const THEME_KEY = 'odin_tasks_theme';
+const THEME_KEY = "odin_tasks_theme";
 
 /**
  * Set theme on document root
  * @param {'light' | 'dark'} theme
  */
 export function setTheme(theme) {
-  if (theme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  } else {
-    document.documentElement.removeAttribute('data-theme');
-  }
+  document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem(THEME_KEY, theme);
 }
 
@@ -18,7 +14,7 @@ export function setTheme(theme) {
  * @returns {'light' | 'dark'}
  */
 export function getTheme() {
-  return localStorage.getItem(THEME_KEY) || 'light';
+  return localStorage.getItem(THEME_KEY) || "light";
 }
 
 /**
@@ -27,7 +23,7 @@ export function getTheme() {
  */
 export function toggleTheme() {
   const current = getTheme();
-  const next = current === 'light' ? 'dark' : 'light';
+  const next = current === "light" ? "dark" : "light";
   setTheme(next);
   return next;
 }
@@ -47,5 +43,7 @@ export function initTheme() {
  * @returns {'light' | 'dark'}
  */
 export function getSystemTheme() {
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }
