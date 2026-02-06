@@ -52,11 +52,11 @@ function updateThemeIcon(theme) {
   if (!themeIcon) return;
 
   if (theme === "light") {
-    themeIcon.src = "/assets/light-theme-icon.svg";
+    themeIcon.src = "assets/light-theme-icon.svg";
   } else if (theme === "dark") {
-    themeIcon.src = "/assets/dark-theme-icon.svg";
+    themeIcon.src = "assets/dark-theme-icon.svg";
   } else {
-    themeIcon.src = "/assets/system-theme-icon.svg";
+    themeIcon.src = "assets/system-theme-icon.svg";
   }
 }
 

@@ -3,9 +3,9 @@ const themeMenu = document.getElementById("theme-menu");
 const themeIcon = document.getElementById("theme-icon");
 
 const themeIcons = {
-  light: "/assets/icons/sun.svg",
-  dark: "/assets/icons/moon.svg",
-  system: "/assets/icons/sun-moon.svg",
+  light: "assets/icons/sun.svg",
+  dark: "assets/icons/moon.svg",
+  system: "assets/icons/sun-moon.svg",
 };
 
 function setTheme(theme) {
@@ -67,8 +67,8 @@ function setSidebarCollapsed(isCollapsed) {
   );
   if (sidebarToggleIcon) {
     sidebarToggleIcon.src = isCollapsed
-      ? "/assets/icons/panel-left-open.svg"
-      : "/assets/icons/panel-left-close.svg";
+      ? "assets/icons/panel-left-open.svg"
+      : "assets/icons/panel-left-close.svg";
   }
   if (sidebarToggle) {
     sidebarToggle.style.opacity = isCollapsed ? "" : "0";
