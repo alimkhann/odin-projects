@@ -30,6 +30,7 @@ export type AppActions = {
   onPickLocation: (id: number) => void;
   onSaveLocation: (id: number) => void;
   onToggleSaved: (id: number) => void;
+  onRemoveLocation: (id: number) => void;
   onSetUnits: (units: Units) => void;
   onToggleSidebar: () => void;
   onToggleTheme: () => void;
@@ -377,6 +378,14 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
   input.addEventListener("input", () => actions.onQuery(input.value));
 
   sidebarList.addEventListener("click", (e) => {
+    const deleteBtn = (e.target as HTMLElement).closest<HTMLElement>(
+      "[data-delete-id]",
+    );
+    if (deleteBtn) {
+      e.stopPropagation();
+      actions.onRemoveLocation(Number(deleteBtn.dataset.deleteId));
+      return;
+    }
     const el = (e.target as HTMLElement).closest<HTMLElement>("[data-loc-id]");
     if (el) actions.onPickLocation(Number(el.dataset.locId));
   });
@@ -397,6 +406,7 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
 
   /* ── State tracking ─────────────────────────────────── */
   let lastState: AppState | null = null;
+  let lastSidebarHtml = "";
 
   /* ── Render helpers ─────────────────────────────────── */
 
@@ -405,6 +415,7 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
     state: AppState,
     selectedLoc: Location | undefined,
     units: Units,
+    showDelete = false,
   ): string {
     return locations
       .filter((l): l is Location => l != null)
@@ -425,9 +436,13 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
         const hiloHtml = fc?.daily[0]
           ? `<div class="sidebar-item__hilo">H:${fmtTemp(fc.daily[0].tempMax)}  L:${fmtTemp(fc.daily[0].tempMin)}</div>`
           : "";
+        const deleteHtml = showDelete
+          ? `<button class="sidebar-item__delete" data-delete-id="${loc.id}" aria-label="Remove ${esc(loc.name)}">${icons.x}</button>`
+          : "";
 
         return `
       <div class="${cls}" data-loc-id="${loc.id}">
+        ${deleteHtml}
         <div class="sidebar-item__row">
           <span class="sidebar-item__city">${esc(loc.name)}</span>
           ${tempHtml}
@@ -1149,13 +1164,14 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
     }
 
     /* ── Sidebar ────────────────────────────────────── */
+    let nextSidebarHtml: string;
     if (isSearchMode) {
       if (state.search.loading) {
-        sidebarList.innerHTML = `<div class="sidebar__hint">Searching…</div>`;
+        nextSidebarHtml = `<div class="sidebar__hint">Searching…</div>`;
       } else if (searchResults.length === 0) {
-        sidebarList.innerHTML = `<div class="sidebar__hint">No results found</div>`;
+        nextSidebarHtml = `<div class="sidebar__hint">No results found</div>`;
       } else {
-        sidebarList.innerHTML = renderSidebarItems(
+        nextSidebarHtml = renderSidebarItems(
           searchResults,
           state,
           selectedLoc,
@@ -1163,14 +1179,20 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
         );
       }
     } else if (savedLocs.length === 0) {
-      sidebarList.innerHTML = `<div class="sidebar__hint">Search for a city to add it</div>`;
+      nextSidebarHtml = `<div class="sidebar__hint">Search for a city to add it</div>`;
     } else {
-      sidebarList.innerHTML = renderSidebarItems(
+      nextSidebarHtml = renderSidebarItems(
         savedLocs,
         state,
         selectedLoc,
         units,
+        true,
       );
+    }
+
+    if (nextSidebarHtml !== lastSidebarHtml) {
+      sidebarList.innerHTML = nextSidebarHtml;
+      lastSidebarHtml = nextSidebarHtml;
     }
 
     /* ── Main content ───────────────────────────────── */

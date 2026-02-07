@@ -213,12 +213,42 @@ export function createForecastController(store: Store) {
     }
   }
 
+  function removeLocation(locationId: number) {
+    console.log("[forecastController] Remove location:", locationId);
+    store.setState((state) => {
+      const savedLocationIds = state.prefs.savedLocationIds.filter(
+        (id) => id !== locationId,
+      );
+      // Clear selection if the removed location was selected
+      const selectedLocationId =
+        state.prefs.selectedLocationId === locationId
+          ? savedLocationIds[0]
+          : state.prefs.selectedLocationId;
+
+      const next = {
+        ...state,
+        prefs: {
+          ...state.prefs,
+          savedLocationIds,
+          selectedLocationId,
+        },
+      };
+
+      persistPreferences(next.prefs, next.entities.locationsById);
+      return next;
+    });
+
+    // Load forecast for the newly selected location (if changed)
+    void loadSelectedLocationForecast();
+  }
+
   return {
     loadSelectedLocationForecast,
     loadAllSavedForecasts,
     selectLocation,
     setUnits,
     toggleSavedLocation,
+    removeLocation,
     persistPreferences() {
       const state = store.getState();
       persistPreferences(state.prefs, state.entities.locationsById);
