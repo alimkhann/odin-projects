@@ -5,8 +5,7 @@ import { TtlCache } from "./cache.ts";
 
 const FORECAST_KEY_PREFIX = "weather-appleish:forecast";
 
-// const FORECAST_TTL_MS = 1000 * 60 * 10;
-const FORECAST_TTL_MS = 3000;
+const FORECAST_TTL_MS = 1000 * 60 * 10;
 
 const memCache = new TtlCache<Forecast>();
 
