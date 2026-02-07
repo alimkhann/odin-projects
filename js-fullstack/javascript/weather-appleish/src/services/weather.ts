@@ -1,17 +1,12 @@
 import { fetchForecast } from "../api/openMeteoForecast.ts";
 import type { Forecast, Location, Units } from "../domain/weather.ts";
 import { mapOpenMeteoForecast } from "../mappers/openMeteoMapper.ts";
+import { forecastKey } from "../store/state.ts";
 import { TtlCache } from "./cache.ts";
-
-const FORECAST_KEY_PREFIX = "weather-appleish:forecast";
 
 const FORECAST_TTL_MS = 1000 * 60 * 10;
 
 const memCache = new TtlCache<Forecast>();
-
-function makeForecastCacheKey(locationId: number, units: Units): string {
-  return `${FORECAST_KEY_PREFIX}:${locationId}:${units}`;
-}
 
 type Persisted<T> = { expiresAt: number; value: T };
 
@@ -46,7 +41,7 @@ export async function getForecast(
   units: Units,
   opts?: { signal?: AbortSignal },
 ): Promise<Forecast> {
-  const key = makeForecastCacheKey(location.id, units);
+  const key = forecastKey(location.id, units);
 
   const cached = memCache.get(key);
   if (cached) {
