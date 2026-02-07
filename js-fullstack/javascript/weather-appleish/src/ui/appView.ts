@@ -130,6 +130,9 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
              placeholder="Search" autocomplete="off" spellcheck="false" />
     </div>
     <div class="sidebar__list"></div>
+    <a class="github-link" href="https://github.com/alimkhann" target="_blank" rel="noopener noreferrer" title="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.82-.26.82-.58l-.01-2.05c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6.02 0c2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18a4.65 4.65 0 0 1 1.24 3.22c0 4.61-2.8 5.63-5.48 5.92.43.37.81 1.1.81 2.22l-.01 3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .3"/></svg>
+    </a>
   </aside>
 
   <!-- Main -->
@@ -335,7 +338,7 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
   const sunriseDescEl = $(".sunrise-desc");
 
   const windSpeedEl = $(".wind-speed-val");
-  const windArrow = root.querySelector<SVGElement>(".wind-compass__arrow")!;
+  const windArrow = root.querySelector<SVGElement>(".wind-compass__arrow");
   const windDescEl = $(".wind-desc");
 
   const humidityValueEl = $(".humidity-value");
@@ -347,7 +350,7 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
   const pressureValEl = $(".pressure-val");
   const pressureSvg = root.querySelector<SVGElement>(
     "[data-card='pressure'] svg",
-  )!;
+  );
 
   const precipValueEl = $(".precip-value");
   const precipDescEl = $(".precip-desc");
@@ -357,15 +360,11 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
   const feelsDescEl = $(".feels-desc");
 
   /* Modal */
-  const modalBackdrop =
-    root.querySelector<HTMLElement>(".modal-backdrop") ??
-    document.querySelector<HTMLElement>(".modal-backdrop")!;
-  const modalPanel =
-    root.querySelector<HTMLElement>(".modal-panel") ??
-    document.querySelector<HTMLElement>(".modal-panel")!;
-  const modalTitle = modalPanel.querySelector<HTMLElement>(".modal__title")!;
-  const modalClose = modalPanel.querySelector<HTMLElement>(".modal__close")!;
-  const modalBody = modalPanel.querySelector<HTMLElement>(".modal__body")!;
+  const modalBackdrop = $(".modal-backdrop");
+  const modalPanel = $(".modal-panel");
+  const modalTitle = $(".modal__title");
+  const modalClose = $(".modal__close");
+  const modalBody = $(".modal__body");
 
   /* ── Wire events ────────────────────────────────────── */
 
@@ -543,7 +542,8 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
 
     /* Wind */
     windSpeedEl.textContent = String(Math.round(fc.current.windSpeed));
-    windArrow.style.transform = `rotate(${fc.current.windDirection}deg)`;
+    if (windArrow)
+      windArrow.style.transform = `rotate(${fc.current.windDirection}deg)`;
     windDescEl.textContent = `Gusts: ${Math.round(fc.current.windGusts)} km/h ${windCompass(fc.current.windDirection)}`;
 
     /* Humidity */
@@ -625,7 +625,7 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
         `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${w}" stroke-linecap="round" opacity="${op}"/>`,
       );
     }
-    pressureSvg.innerHTML = ticks.join("");
+    if (pressureSvg) pressureSvg.innerHTML = ticks.join("");
   }
 
   /* ── Modal content renderer ─────────────────────────── */

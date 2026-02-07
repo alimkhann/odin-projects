@@ -218,6 +218,7 @@ body {
    Sidebar
    ======================================================== */
 .sidebar {
+  position: relative;
   width: 260px;
   min-width: 260px;
   display: flex;
@@ -227,7 +228,7 @@ body {
   border: var(--glass-border);
   border-radius: var(--radius-sidebar);
   box-shadow: var(--glass-shadow);
-  padding: 12px;
+  padding: 12px 12px 60px;
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   transition:
@@ -311,6 +312,35 @@ body {
 .sidebar__list::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.1);
   border-radius: 2px;
+}
+
+/* GitHub link */
+.github-link {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22%;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  transition:
+    background 0.2s,
+    color 0.2s;
+  text-decoration: none;
+}
+
+.github-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+.github-link:hover {
+  background: rgba(255, 255, 255, 0.22);
+  color: var(--text-primary);
 }
 
 .sidebar__hint {
@@ -1060,8 +1090,8 @@ body {
 }
 
 .modal__chart canvas {
-  width: 100% !important;
-  height: 100% !important;
+  width: 100%;
+  height: 100%;
 }
 
 .modal__section-title {
