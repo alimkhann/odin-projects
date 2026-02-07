@@ -1,4 +1,5 @@
 import type { Location, Units } from "../domain/weather.ts";
+import { detectUserLocation } from "../services/geolocationService.ts";
 import { savePreferences } from "../services/preferencesService.ts";
 import { getForecast } from "../services/weatherService.ts";
 import type { AppState } from "../store/state.ts";
@@ -266,6 +267,46 @@ export function createForecastController(store: Store) {
     persistPreferences() {
       const state = store.getState();
       persistPreferences(state.prefs, state.entities.locationsById);
+    },
+    async detectAndSaveUserLocation() {
+      console.log("[forecastController] Detecting user location…");
+      try {
+        const location = await detectUserLocation();
+        console.log("[forecastController] Detected:", location.name);
+
+        // Add to entities
+        store.setState((state) => ({
+          ...state,
+          entities: {
+            ...state.entities,
+            locationsById: {
+              ...state.entities.locationsById,
+              [location.id]: location,
+            },
+          },
+        }));
+
+        // Save + select
+        store.setState((state) => {
+          const next = {
+            ...state,
+            prefs: {
+              ...state.prefs,
+              savedLocationIds: [location.id, ...state.prefs.savedLocationIds],
+              selectedLocationId: location.id,
+            },
+          };
+          persistPreferences(next.prefs, next.entities.locationsById);
+          return next;
+        });
+
+        await loadSelectedLocationForecast();
+      } catch (error) {
+        console.warn(
+          "[forecastController] Geolocation failed (user denied or unavailable):",
+          error,
+        );
+      }
     },
   };
 }

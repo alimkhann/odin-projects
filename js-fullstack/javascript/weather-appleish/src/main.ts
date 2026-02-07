@@ -78,3 +78,8 @@ rerender();
 
 void forecast.loadAllSavedForecasts();
 void forecast.loadSelectedLocationForecast();
+
+/* On first visit (no saved locations), try to detect user's city */
+if (appStore.getState().prefs.savedLocationIds.length === 0) {
+  void forecast.detectAndSaveUserLocation();
+}
