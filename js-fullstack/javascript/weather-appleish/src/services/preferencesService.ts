@@ -2,6 +2,7 @@ export type Preferences = {
   units: "metric" | "imperial";
   savedLocationIds: number[];
   selectedLocationId?: number;
+  theme: "light" | "dark";
 };
 
 const STORAGE_KEY = "weather-appleish:preferences";
@@ -10,6 +11,7 @@ const DEFAULT_PREFERENCES: Preferences = {
   units: "metric",
   savedLocationIds: [],
   selectedLocationId: undefined,
+  theme: "light",
 };
 
 export function loadPreferences(): Preferences {
@@ -21,7 +23,6 @@ export function loadPreferences(): Preferences {
 
     const parsed = JSON.parse(stored);
 
-    // Merge with defaults to handle missing fields
     return {
       units: parsed.units === "imperial" ? "imperial" : "metric",
       savedLocationIds: Array.isArray(parsed.savedLocationIds)
@@ -31,6 +32,7 @@ export function loadPreferences(): Preferences {
         typeof parsed.selectedLocationId === "number"
           ? parsed.selectedLocationId
           : undefined,
+      theme: parsed.theme === "dark" ? "dark" : "light",
     };
   } catch (error) {
     console.warn("Failed to load preferences, using defaults", error);

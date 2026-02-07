@@ -6,11 +6,26 @@ export function forecastKey(locationId: number, units: Units): string {
   return `${FORECAST_KEY_PREFIX}:${locationId}:${units}`;
 }
 
+export type ModalType =
+  | "hourly"
+  | "forecast"
+  | "uv"
+  | "sun"
+  | "wind"
+  | "humidity"
+  | "visibility"
+  | "pressure"
+  | "precipitation"
+  | "feelslike";
+
+export type Theme = "light" | "dark";
+
 export type AppState = {
   prefs: {
     units: Units;
     savedLocationIds: number[];
     selectedLocationId?: number;
+    theme: Theme;
   };
 
   entities: {
@@ -20,7 +35,7 @@ export type AppState = {
 
   search: {
     query: string;
-    results: number[]; // locationIds
+    results: number[];
     loading: boolean;
     error?: string;
   };
@@ -28,15 +43,7 @@ export type AppState = {
   ui: {
     sidebarCollapsed: boolean;
     loadingForecast: boolean;
-    activePanel?:
-      | "wind"
-      | "uv"
-      | "sun"
-      | "humidity"
-      | "visibility"
-      | "pressure"
-      | "daily"
-      | "hourly";
+    activeModal?: ModalType;
     toast?: { kind: "error" | "info"; message: string };
   };
 };

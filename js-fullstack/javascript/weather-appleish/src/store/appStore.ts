@@ -10,6 +10,10 @@ function createInitialState(): AppState {
       units: savedPrefs.units,
       savedLocationIds: savedPrefs.savedLocationIds,
       selectedLocationId: savedPrefs.selectedLocationId,
+      theme:
+        (savedPrefs as Record<string, unknown>).theme === "dark"
+          ? "dark"
+          : "light",
     },
     entities: {
       locationsById: {},
@@ -24,7 +28,7 @@ function createInitialState(): AppState {
     ui: {
       sidebarCollapsed: false,
       loadingForecast: false,
-      activePanel: undefined,
+      activeModal: undefined,
       toast: undefined,
     },
   };

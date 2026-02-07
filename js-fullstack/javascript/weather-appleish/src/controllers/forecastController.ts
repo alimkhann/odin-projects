@@ -17,6 +17,7 @@ export function createForecastController(store: Store) {
       units: prefs.units,
       savedLocationIds: prefs.savedLocationIds,
       selectedLocationId: prefs.selectedLocationId,
+      theme: prefs.theme,
     });
   }
 
@@ -157,5 +158,8 @@ export function createForecastController(store: Store) {
     selectLocation,
     setUnits,
     toggleSavedLocation,
+    persistPreferences() {
+      persistPreferences(store.getState().prefs);
+    },
   };
 }
