@@ -116,6 +116,9 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
   <!-- Sidebar toggle -->
   <button class="sidebar-toggle" title="Toggle sidebar">${icons.menu}</button>
 
+  <!-- Mobile back button -->
+  <button class="mobile-back-btn" title="Back to list">${icons.chevronLeft}</button>
+
   <!-- Add location button (hidden by default) -->
   <button class="add-location-btn" title="Save location">${icons.plus}</button>
 
@@ -317,8 +320,11 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
 
   const appLayout = $(".app-layout");
   const sidebarToggle = $<HTMLButtonElement>(".sidebar-toggle");
+  const mobileBackBtn = $<HTMLButtonElement>(".mobile-back-btn");
   const addLocationBtn = $<HTMLButtonElement>(".add-location-btn");
   const themeToggle = $<HTMLButtonElement>(".theme-toggle");
+
+  const isMobile = () => window.matchMedia("(max-width: 640px)").matches;
   const input = $<HTMLInputElement>(".sidebar__search-input");
   const sidebarList = $(".sidebar__list");
   const mainEmpty = $(".main__empty");
@@ -376,6 +382,9 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
   /* ── Wire events ────────────────────────────────────── */
 
   sidebarToggle.addEventListener("click", () => actions.onToggleSidebar());
+  mobileBackBtn.addEventListener("click", () => {
+    appLayout.classList.remove("mobile-detail-view");
+  });
   addLocationBtn.addEventListener("click", () => {
     const state = lastState;
     if (state?.prefs.selectedLocationId != null) {
@@ -395,7 +404,10 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
       return;
     }
     const el = (e.target as HTMLElement).closest<HTMLElement>("[data-loc-id]");
-    if (el) actions.onPickLocation(Number(el.dataset.locId));
+    if (el) {
+      actions.onPickLocation(Number(el.dataset.locId));
+      if (isMobile()) appLayout.classList.add("mobile-detail-view");
+    }
   });
 
   /* Card click → open modal */
