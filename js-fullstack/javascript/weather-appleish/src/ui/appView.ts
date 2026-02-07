@@ -1181,11 +1181,15 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
           units,
         );
       }
-    } else if (savedLocs.length === 0) {
+    } else if (savedLocs.length === 0 && !selectedLoc) {
       nextSidebarHtml = `<div class="sidebar__hint">Search for a city to add it</div>`;
     } else {
+      // Include the selected-but-unsaved location at the top
+      const isUnsaved =
+        selectedLoc && !state.prefs.savedLocationIds.includes(selectedLoc.id);
+      const displayLocs = isUnsaved ? [selectedLoc, ...savedLocs] : savedLocs;
       nextSidebarHtml = renderSidebarItems(
-        savedLocs,
+        displayLocs,
         state,
         selectedLoc,
         units,
