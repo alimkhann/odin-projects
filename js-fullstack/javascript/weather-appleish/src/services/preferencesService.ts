@@ -6,6 +6,7 @@ export type Preferences = {
   selectedLocationId?: number;
   theme: "light" | "dark";
   savedLocations?: Record<number, Location>;
+  sidebarCollapsed?: boolean;
 };
 
 const STORAGE_KEY = "weather-appleish:preferences";
@@ -40,6 +41,7 @@ export function loadPreferences(): Preferences {
         parsed.savedLocations && typeof parsed.savedLocations === "object"
           ? (parsed.savedLocations as Record<number, Location>)
           : {},
+      sidebarCollapsed: parsed.sidebarCollapsed === true,
     };
   } catch (error) {
     console.warn("Failed to load preferences, using defaults", error);

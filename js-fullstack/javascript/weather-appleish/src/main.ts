@@ -32,10 +32,11 @@ const view = mountApp(rootElement, {
   onSetUnits: (units) => forecast.setUnits(units),
 
   onToggleSidebar: () => {
-    appStore.setState((s) => ({
-      ...s,
-      ui: { ...s.ui, sidebarCollapsed: !s.ui.sidebarCollapsed },
-    }));
+    appStore.setState((s) => {
+      const collapsed = !s.ui.sidebarCollapsed;
+      forecast.persistSidebarState(collapsed);
+      return { ...s, ui: { ...s.ui, sidebarCollapsed: collapsed } };
+    });
   },
 
   onToggleTheme: () => {

@@ -25,6 +25,9 @@ fi
 npm --prefix "$REPO_ROOT/js-fullstack/javascript/restaurant-page" run build
 npm --prefix "$REPO_ROOT/js-fullstack/javascript/todo-list" run build
 
+# Build Vite projects (emit to dist/, then copy into build/<project>/)
+npm --prefix "$REPO_ROOT/js-fullstack/javascript/weather-appleish" run build
+
 # Copy static projects into build/<project>/
 mkdir -p "$REPO_ROOT/build"
 
@@ -43,6 +46,11 @@ rsync -a --delete --exclude ".DS_Store" \
 rsync -a --delete --exclude ".DS_Store" \
   "$REPO_ROOT/js-fullstack/intermediate-html-css/sign-up-form/" \
   "$REPO_ROOT/build/sign-up-form/"
+
+mkdir -p "$REPO_ROOT/build/weather-appleish"
+rsync -a --delete --exclude ".DS_Store" \
+  "$REPO_ROOT/js-fullstack/javascript/weather-appleish/dist/" \
+  "$REPO_ROOT/build/weather-appleish/"
 
 # Commit only the build/ output (source changes stay uncommitted unless you commit them yourself)
 git -C "$REPO_ROOT" add build/

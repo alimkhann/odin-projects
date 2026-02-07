@@ -75,34 +75,37 @@ function getBrowserCoords(): Promise<GeolocationCoordinates> {
   });
 }
 
-type IpApiResponse = {
-  latitude?: number;
-  longitude?: number;
-  city?: string;
-};
-
-/** Free IP-based geolocation (no API key needed). */
+/** Free IP-based geolocation (HTTPS + CORS friendly, no API key). */
 async function ipGeolocate(): Promise<{ latitude: number; longitude: number }> {
-  // Try ip-api.com first (free, no key, reliable CORS headers)
+  // 1. ipwho.is – HTTPS, CORS-enabled, no key
   try {
-    const res = await fetch("http://ip-api.com/json/?fields=lat,lon");
+    const res = await fetch("https://ipwho.is/");
     if (res.ok) {
-      const data = (await res.json()) as { lat?: number; lon?: number };
-      if (data.lat != null && data.lon != null) {
-        return { latitude: data.lat, longitude: data.lon };
+      const data = (await res.json()) as {
+        success?: boolean;
+        latitude?: number;
+        longitude?: number;
+      };
+      if (data.success && data.latitude != null && data.longitude != null) {
+        return { latitude: data.latitude, longitude: data.longitude };
       }
     }
   } catch {
     /* fall through */
   }
 
-  // Fallback: ipapi.co (HTTPS, free, ~1000 req/day)
+  // 2. ipapi.is – HTTPS, CORS-enabled, no key
   try {
-    const res = await fetch("https://ipapi.co/json/");
+    const res = await fetch("https://api.ipapi.is/");
     if (res.ok) {
-      const data = (await res.json()) as IpApiResponse;
-      if (data.latitude != null && data.longitude != null) {
-        return { latitude: data.latitude, longitude: data.longitude };
+      const data = (await res.json()) as {
+        location?: { latitude?: number; longitude?: number };
+      };
+      if (data.location?.latitude != null && data.location?.longitude != null) {
+        return {
+          latitude: data.location.latitude,
+          longitude: data.location.longitude,
+        };
       }
     }
   } catch {

@@ -26,7 +26,7 @@ function createInitialState(): AppState {
       error: undefined,
     },
     ui: {
-      sidebarCollapsed: false,
+      sidebarCollapsed: savedPrefs.sidebarCollapsed ?? false,
       loadingForecast: false,
       activeModal: undefined,
       toast: undefined,

@@ -32,6 +32,7 @@ export function createForecastController(store: Store) {
       selectedLocationId: prefs.selectedLocationId,
       theme: prefs.theme,
       savedLocations,
+      sidebarCollapsed: store.getState().ui.sidebarCollapsed,
     });
   }
 
@@ -267,6 +268,27 @@ export function createForecastController(store: Store) {
     persistPreferences() {
       const state = store.getState();
       persistPreferences(state.prefs, state.entities.locationsById);
+    },
+    persistSidebarState(collapsed: boolean) {
+      const state = store.getState();
+      const prefs = state.prefs;
+      const locationsById = state.entities.locationsById;
+
+      const idsToStore = new Set(prefs.savedLocationIds);
+      if (prefs.selectedLocationId) idsToStore.add(prefs.selectedLocationId);
+      const savedLocations: Record<number, Location> = {};
+      for (const id of idsToStore) {
+        if (locationsById[id]) savedLocations[id] = locationsById[id];
+      }
+
+      savePreferences({
+        units: prefs.units,
+        savedLocationIds: prefs.savedLocationIds,
+        selectedLocationId: prefs.selectedLocationId,
+        theme: prefs.theme,
+        savedLocations,
+        sidebarCollapsed: collapsed,
+      });
     },
     async detectAndSaveUserLocation() {
       console.log("[forecastController] Detecting user location…");

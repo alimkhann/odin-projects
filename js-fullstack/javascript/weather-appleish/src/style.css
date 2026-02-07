@@ -228,7 +228,7 @@ body {
   border: var(--glass-border);
   border-radius: var(--radius-sidebar);
   box-shadow: var(--glass-shadow);
-  padding: 12px 12px 60px;
+  padding: 12px 12px 64px;
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   transition:
@@ -314,11 +314,39 @@ body {
   border-radius: 2px;
 }
 
+/* Sidebar footer */
+.sidebar__footer {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Attribution link */
+.attribution-link {
+  display: block;
+  font-size: 11px;
+  text-align: center;
+  color: var(--text-secondary);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  padding: 4px;
+}
+
+.attribution-link:hover {
+  opacity: 1;
+}
+
 /* GitHub link */
 .github-link {
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
   width: 36px;
   height: 36px;
   display: flex;
