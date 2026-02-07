@@ -1,8 +1,11 @@
+import type { Location } from "../domain/weather.ts";
+
 export type Preferences = {
   units: "metric" | "imperial";
   savedLocationIds: number[];
   selectedLocationId?: number;
   theme: "light" | "dark";
+  savedLocations?: Record<number, Location>;
 };
 
 const STORAGE_KEY = "weather-appleish:preferences";
@@ -33,6 +36,10 @@ export function loadPreferences(): Preferences {
           ? parsed.selectedLocationId
           : undefined,
       theme: parsed.theme === "dark" ? "dark" : "light",
+      savedLocations:
+        parsed.savedLocations && typeof parsed.savedLocations === "object"
+          ? (parsed.savedLocations as Record<number, Location>)
+          : {},
     };
   } catch (error) {
     console.warn("Failed to load preferences, using defaults", error);

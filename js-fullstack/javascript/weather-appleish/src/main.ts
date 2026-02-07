@@ -74,4 +74,5 @@ document.documentElement.setAttribute(
 
 rerender();
 
+void forecast.loadAllSavedForecasts();
 void forecast.loadSelectedLocationForecast();

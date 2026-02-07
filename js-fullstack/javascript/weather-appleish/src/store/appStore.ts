@@ -16,7 +16,7 @@ function createInitialState(): AppState {
           : "light",
     },
     entities: {
-      locationsById: {},
+      locationsById: savedPrefs.savedLocations ?? {},
       forecastsByKey: {},
     },
     search: {

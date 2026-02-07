@@ -1,4 +1,4 @@
-import type { Units } from "../domain/weather.ts";
+import type { Location, Units } from "../domain/weather.ts";
 import { savePreferences } from "../services/preferencesService.ts";
 import { getForecast } from "../services/weatherService.ts";
 import type { AppState } from "../store/state.ts";
@@ -12,12 +12,25 @@ type Store = {
 export function createForecastController(store: Store) {
   let controller: AbortController | null = null;
 
-  function persistPreferences(prefs: AppState["prefs"]) {
+  function persistPreferences(
+    prefs: AppState["prefs"],
+    locationsById: Record<number, Location>,
+  ) {
+    // Collect Location objects for all saved + selected locations
+    const idsToStore = new Set(prefs.savedLocationIds);
+    if (prefs.selectedLocationId) idsToStore.add(prefs.selectedLocationId);
+
+    const savedLocations: Record<number, Location> = {};
+    for (const id of idsToStore) {
+      if (locationsById[id]) savedLocations[id] = locationsById[id];
+    }
+
     savePreferences({
       units: prefs.units,
       savedLocationIds: prefs.savedLocationIds,
       selectedLocationId: prefs.selectedLocationId,
       theme: prefs.theme,
+      savedLocations,
     });
   }
 
@@ -100,6 +113,46 @@ export function createForecastController(store: Store) {
     }
   }
 
+  async function loadForecastForLocation(locationId: number) {
+    const state = store.getState();
+    const location = state.entities.locationsById[locationId];
+    if (!location) return;
+
+    const key = forecastKey(locationId, state.prefs.units);
+    if (state.entities.forecastsByKey[key]) return; // already cached
+
+    try {
+      const forecast = await getForecast(location, state.prefs.units);
+      store.setState((s) => ({
+        ...s,
+        entities: {
+          ...s.entities,
+          forecastsByKey: {
+            ...s.entities.forecastsByKey,
+            [key]: forecast,
+          },
+        },
+      }));
+    } catch (error) {
+      console.warn(
+        "[forecastController] Failed to load forecast for",
+        locationId,
+        error,
+      );
+    }
+  }
+
+  async function loadAllSavedForecasts() {
+    const state = store.getState();
+    const ids = state.prefs.savedLocationIds;
+    if (ids.length === 0) return;
+    console.log(
+      "[forecastController] Loading forecasts for saved locations:",
+      ids,
+    );
+    await Promise.allSettled(ids.map((id) => loadForecastForLocation(id)));
+  }
+
   function selectLocation(locationId: number) {
     console.log("[forecastController] Select location:", locationId);
     store.setState((state) => {
@@ -110,7 +163,7 @@ export function createForecastController(store: Store) {
           selectedLocationId: locationId,
         },
       };
-      persistPreferences(next.prefs);
+      persistPreferences(next.prefs, next.entities.locationsById);
       return next;
     });
     void loadSelectedLocationForecast();
@@ -126,10 +179,11 @@ export function createForecastController(store: Store) {
           units,
         },
       };
-      persistPreferences(next.prefs);
+      persistPreferences(next.prefs, next.entities.locationsById);
       return next;
     });
     void loadSelectedLocationForecast();
+    void loadAllSavedForecasts();
   }
 
   function toggleSavedLocation(locationId: number) {
@@ -148,18 +202,26 @@ export function createForecastController(store: Store) {
         },
       };
 
-      persistPreferences(next.prefs);
+      persistPreferences(next.prefs, next.entities.locationsById);
       return next;
     });
+
+    // If we just saved (not removed), load forecast for sidebar display
+    const afterState = store.getState();
+    if (afterState.prefs.savedLocationIds.includes(locationId)) {
+      void loadForecastForLocation(locationId);
+    }
   }
 
   return {
     loadSelectedLocationForecast,
+    loadAllSavedForecasts,
     selectLocation,
     setUnits,
     toggleSavedLocation,
     persistPreferences() {
-      persistPreferences(store.getState().prefs);
+      const state = store.getState();
+      persistPreferences(state.prefs, state.entities.locationsById);
     },
   };
 }
