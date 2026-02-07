@@ -1,24 +1,25 @@
 import "./style.css";
-import viteLogo from "/vite.svg";
-import { runPlayground } from "./playground";
-import typescriptLogo from "./typescript.svg";
+import { createForecastController } from "./controllers/forecastController";
+import { createSearchController } from "./controllers/searchController";
+import { appStore } from "./store/appStore";
+import { mountApp } from "./ui/appView";
 
-const appElement = document.querySelector<HTMLDivElement>("#app");
-if (appElement) {
-  appElement.innerHTML = `
-    <div>
-      <a href="https://vite.dev" target="_blank">
-        <img src="${viteLogo}" class="logo" alt="Vite logo" />
-      </a>
-      <a href="https://www.typescriptlang.org/" target="_blank">
-        <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-      </a>
-      <h1>Vite + TypeScript</h1>
-      <p class="read-the-docs">
-        Click on the Vite and TypeScript logos to learn more
-      </p>
-    </div>
-  `;
+const search = createSearchController(appStore);
+const forecast = createForecastController(appStore);
+
+const rootElement = document.querySelector<HTMLElement>("#app");
+if (!rootElement) throw new Error("Missing #app");
+
+const view = mountApp(rootElement, {
+  onQuery: (q) => void search.setQuery(q),
+  onPickLocation: (id) => forecast.selectLocation(id),
+});
+
+function rerender() {
+  view.update(appStore.getState());
 }
 
-runPlayground();
+appStore.subscribe(rerender);
+rerender();
+
+void forecast.loadSelectedLocationForecast();
