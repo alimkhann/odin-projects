@@ -1,96 +1,592 @@
+/* ========================================================
+   weather-appleish — Design tokens & styles from Figma
+   ======================================================== */
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Design tokens ---------- */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Typography */
+  --font: "Inter", system-ui, -apple-system, sans-serif;
+  --fw-thin: 100;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Palette */
+  --color-text: #1d1d1f;
+  --color-text-secondary: rgba(29, 29, 31, 0.6);
+  --color-text-tertiary: rgba(29, 29, 31, 0.8);
+  --color-precip: #51a2ff;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  /* Surface / glass */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --glass-blur: blur(20px);
+
+  /* Divider */
+  --divider: 1px solid rgba(255, 255, 255, 0.1);
+
+  /* Radii */
+  --radius-card: 12px;
+  --radius-sidebar: 12px;
+  --radius-item: 10px;
+  --radius-search: 10px;
+  --radius-hourly: 16px;
+  --radius-bar: 9999px;
+
+  /* UV gradient */
+  --uv-gradient: linear-gradient(90deg, #05df72, #fdc700, #fb2c36);
+  /* Temp bar gradient */
+  --temp-gradient: linear-gradient(90deg, #51a2ff, #ff8904);
+}
+
+/* ---------- Base ---------- */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font);
+  font-weight: var(--fw-regular);
+  color: var(--color-text);
+  background: linear-gradient(180deg, #4facfe 0%, #74b9e8 45%, #a0ccdd 100%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+#app {
+  height: 100vh;
+  overflow: hidden;
 }
 
-body {
-  margin: 0;
+/* ---------- App layout ---------- */
+.app-layout {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  height: 100vh;
+  padding: 12px;
+  gap: 8px;
 }
 
-h1 {
-  font-size: 3.2em;
+/* ========================================================
+   Sidebar
+   ======================================================== */
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  border-radius: var(--radius-sidebar);
+  box-shadow: var(--glass-shadow);
+  padding: 12px;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+/* Search */
+.sidebar__search {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.sidebar__search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  opacity: 0.4;
+  pointer-events: none;
+  color: var(--color-text);
+}
+
+.sidebar__search-input {
+  width: 100%;
+  padding: 8px 16px 8px 36px;
+  border-radius: var(--radius-search);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--color-text);
+  outline: none;
+  transition: background 0.15s;
+}
+
+.sidebar__search-input::placeholder {
+  color: rgba(29, 29, 31, 0.45);
+}
+
+.sidebar__search-input:focus {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Sidebar list */
+.sidebar__list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar__list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar__list::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}
+
+.sidebar__hint {
+  padding: 16px 8px;
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.5;
+  font-weight: var(--fw-light);
+}
+
+/* Sidebar item */
+.sidebar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: var(--radius-item);
+  cursor: pointer;
+  transition: background 0.15s;
+  user-select: none;
+  border: 1px solid transparent;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.sidebar-item--selected {
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.sidebar-item--selected:hover {
+  background: var(--glass-bg);
+}
+
+.sidebar-item__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.sidebar-item__city {
+  font-weight: var(--fw-medium);
+  font-size: 15px;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+.sidebar-item__temp {
+  font-weight: var(--fw-light);
+  font-size: 22px;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.sidebar-item__subtitle {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 130px;
+}
+
+.sidebar-item__condition {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.sidebar-item__hilo {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  margin-top: 1px;
+}
+
+/* ========================================================
+   Main content
+   ======================================================== */
+.main {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 12px;
+}
+
+.main::-webkit-scrollbar {
+  width: 6px;
+}
+
+.main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.main::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+}
+
+/* Main content wrapper (hidden until location selected) */
+.main__content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Empty state */
+.main__empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: var(--fw-light);
+  color: var(--color-text-secondary);
+}
+
+/* ========================================================
+   Header
+   ======================================================== */
+.header {
+  text-align: center;
+  padding: 24px 0 8px;
+}
+
+.header__label {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.header__city {
+  font-weight: var(--fw-light);
+  font-size: 30px;
+  letter-spacing: 0.4px;
+  margin-top: 2px;
+}
+
+.header__temp {
+  font-weight: var(--fw-thin);
+  font-size: 52px;
+  letter-spacing: 0.35px;
+  line-height: 1.1;
+  margin-top: 2px;
+}
+
+.header__condition {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
+}
+
+.header__feels-like {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+.header__hilo {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+/* ========================================================
+   Hourly forecast card
+   ======================================================== */
+.hourly-card {
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  border-radius: var(--radius-hourly);
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+.hourly-card__summary {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  border-bottom: var(--divider);
+  min-height: 38px;
+}
+
+.hourly-card__scroll {
+  display: flex;
+  overflow-x: auto;
+  padding: 8px 4px 18px;
+}
+
+.hourly-card__scroll::-webkit-scrollbar {
+  height: 3px;
+}
+
+.hourly-card__scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 2px;
+}
+
+/* Hourly item */
+.hourly-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 64px;
+  padding: 6px 0;
+}
+
+.hourly-item__time {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  font-weight: var(--fw-medium);
+}
+
+.hourly-item__icon {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.hourly-item__temp {
+  font-weight: var(--fw-medium);
+  font-size: 14px;
+}
+
+/* ========================================================
+   Weather card (shared)
+   ======================================================== */
+.weather-card {
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glass-shadow);
+  padding: 14px;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  display: flex;
+  flex-direction: column;
+  min-height: 160px;
+}
+
+.weather-card__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.weather-card__header-icon {
+  font-size: 14px;
+  opacity: 0.6;
+  line-height: 1;
+}
+
+.weather-card__header-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--color-text-secondary);
+  font-weight: var(--fw-medium);
+}
+
+/* ========================================================
+   Cards grid
+   ======================================================== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  grid-auto-flow: dense;
+}
+
+.weather-card--large {
+  grid-row: span 3;
+  min-height: unset;
+}
+
+/* ========================================================
+   10-Day forecast card
+   ======================================================== */
+.daily-card__rows {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.daily-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: var(--divider);
+}
+
+.daily-row:last-child {
+  border-bottom: none;
+}
+
+.daily-row__day {
+  width: 40px;
+  font-size: 14px;
+  font-weight: var(--fw-medium);
+  flex-shrink: 0;
+}
+
+.daily-row__icon {
+  font-size: 18px;
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.daily-row__lo {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  width: 32px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.daily-row__bar {
+  flex: 1;
+  height: 5px;
+  border-radius: var(--radius-bar);
+  background: rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  min-width: 40px;
+}
+
+.daily-row__bar-fill {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: var(--radius-bar);
+  background: var(--temp-gradient);
+}
+
+.daily-row__hi {
+  font-size: 14px;
+  font-weight: var(--fw-medium);
+  width: 32px;
+  flex-shrink: 0;
+}
+
+/* ========================================================
+   Small card body
+   ======================================================== */
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-value {
+  font-weight: var(--fw-light);
+  font-size: 34px;
   line-height: 1.1;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.card-description {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+/* UV gradient bar */
+.uv-bar {
+  height: 5px;
+  border-radius: var(--radius-bar);
+  background: var(--uv-gradient);
+  margin: 12px 0 6px;
+  position: relative;
+}
+
+.uv-bar__marker {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================================
+   Loading / placeholder
+   ======================================================== */
+.loading-placeholder {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  padding: 24px 0;
   text-align: center;
+  font-weight: var(--fw-light);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* ========================================================
+   Responsive
+   ======================================================== */
+@media (max-width: 860px) {
+  .sidebar {
+    width: 220px;
+    min-width: 220px;
   }
-  a:hover {
-    color: #747bff;
+
+  .cards-grid {
+    grid-template-columns: 1fr;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .weather-card--large {
+    grid-row: span 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-layout {
+    flex-direction: column;
+    padding: 8px;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    max-height: 200px;
   }
 }

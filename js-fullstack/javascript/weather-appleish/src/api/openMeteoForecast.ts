@@ -11,6 +11,7 @@ export async function fetchForecast(
     latitude: String(lat),
     longitude: String(lon),
     timezone,
+    forecast_days: "10",
     current: "temperature_2m,apparent_temperature,weathercode",
     hourly: "temperature_2m,weather_code",
     daily: "temperature_2m_max,temperature_2m_min,weather_code,sunrise,sunset",

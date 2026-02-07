@@ -12,7 +12,17 @@ if (!rootElement) throw new Error("Missing #app");
 
 const view = mountApp(rootElement, {
   onQuery: (q) => void search.setQuery(q),
-  onPickLocation: (id) => forecast.selectLocation(id),
+  onPickLocation: (id) => {
+    forecast.selectLocation(id);
+    /* Auto-save if not already in the sidebar */
+    const state = appStore.getState();
+    if (!state.prefs.savedLocationIds.includes(id)) {
+      forecast.toggleSavedLocation(id);
+    }
+    search.clear();
+  },
+  onToggleSaved: (id) => forecast.toggleSavedLocation(id),
+  onSetUnits: (units) => forecast.setUnits(units),
 });
 
 function rerender() {
