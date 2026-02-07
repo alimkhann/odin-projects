@@ -1,3 +1,4 @@
+import Sortable from "sortablejs";
 import type {
   Forecast,
   HourlyPoint,
@@ -13,16 +14,15 @@ import {
 } from "../store/selectors.ts";
 import type { AppState, ModalType } from "../store/state.ts";
 import { forecastKey } from "../store/state.ts";
-import { weatherDescription, weatherIcon } from "./weatherIcons.ts";
-import { icons } from "./icons.ts";
 import {
-  createLineChart,
-  createDualLineChart,
-  createBarChart,
   createAreaChart,
+  createBarChart,
+  createDualLineChart,
+  createLineChart,
   destroyAllCharts,
 } from "./charts.ts";
-import Sortable from "sortablejs";
+import { icons } from "./icons.ts";
+import { weatherDescription, weatherIcon } from "./weatherIcons.ts";
 
 /* ── Public types ─────────────────────────────────────── */
 

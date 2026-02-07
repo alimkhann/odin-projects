@@ -3,22 +3,22 @@
  * Using lucide-static for tree-shakeable SVG strings.
  */
 import {
-  Sun,
-  Moon,
+  Calendar,
+  ChevronLeft,
   Cloud,
-  Wind,
+  CloudDrizzle,
   Droplets,
   Eye,
   Gauge,
-  Sunrise,
-  CloudDrizzle,
-  Thermometer,
   Menu,
-  ChevronLeft,
+  Moon,
   Plus,
-  X,
   Search,
-  Calendar,
+  Sun,
+  Sunrise,
+  Thermometer,
+  Wind,
+  X,
 } from "lucide-static";
 
 export const icons = {

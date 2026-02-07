@@ -3,15 +3,15 @@
  * Creates and manages chart instances for weather detail modals.
  */
 import {
-  Chart,
-  LineController,
   BarController,
-  LineElement,
   BarElement,
-  PointElement,
-  LinearScale,
   CategoryScale,
+  Chart,
   Filler,
+  LinearScale,
+  LineController,
+  LineElement,
+  PointElement,
   Tooltip,
 } from "chart.js";
 
