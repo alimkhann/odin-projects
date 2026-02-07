@@ -27,6 +27,7 @@ export type AppState = {
 
   ui: {
     sidebarCollapsed: boolean;
+    loadingForecast: boolean;
     activePanel?:
       | "wind"
       | "uv"

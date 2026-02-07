@@ -23,6 +23,7 @@ function createInitialState(): AppState {
     },
     ui: {
       sidebarCollapsed: false,
+      loadingForecast: false,
       activePanel: undefined,
       toast: undefined,
     },
