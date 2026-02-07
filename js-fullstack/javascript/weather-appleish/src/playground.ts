@@ -1,13 +1,19 @@
-import { TtlCache } from "./services/cache.ts";
+import { loadPreferences, savePreferences } from "./services/preferences.ts";
 
 export async function runPlayground() {
-  const cache = new TtlCache<string>();
+  const initial = loadPreferences();
+  console.log("Initial preferences:", initial);
 
-  cache.set("test-key", "hello", 1000);
+  const updated = {
+    units: "imperial" as const,
+    savedLocationIds: [123, 456, 789],
+    selectedLocationId: 456,
+  };
 
-  console.log("Immediately after set:", cache.get("test-key"));
+  savePreferences(updated);
+  console.log("Saved preferences:", updated);
 
-  await new Promise((resolve) => setTimeout(resolve, 1200));
-
-  console.log("After 1200ms (should be undefined):", cache.get("test-key"));
+  const loaded = loadPreferences();
+  console.log("Loaded preferences:", loaded);
+  console.log("Match:", JSON.stringify(loaded) === JSON.stringify(updated));
 }
