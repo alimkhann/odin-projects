@@ -1,26 +1,13 @@
-import { fetchForecast } from "./api/openMeteoForecast";
-import { searchLocations } from "./api/openMeteoGeocoding";
-import { mapOpenMeteoForecast } from "./mappers/openMeteoMapper";
+import { TtlCache } from "./services/cache.ts";
 
 export async function runPlayground() {
-  const results = await searchLocations("Ekibastuz");
-  const location = results[0];
-  if (!location) throw new Error("No location found");
+  const cache = new TtlCache<string>();
 
-  const timezone = location.timezone ?? "auto";
-  const rawForecast = await fetchForecast(
-    location.latitude,
-    location.longitude,
-    timezone,
-    "metric",
-  );
+  cache.set("test-key", "hello", 1000);
 
-  const mappedForecast = mapOpenMeteoForecast(rawForecast, {
-    locationId: location.id,
-    units: "metric",
-  });
+  console.log("Immediately after set:", cache.get("test-key"));
 
-  console.log("Mapped forecast:", mappedForecast);
-  console.log("Hourly[0]:", mappedForecast.hourly[0]);
-  console.log("Daily[0]:", mappedForecast.daily[0]);
+  await new Promise((resolve) => setTimeout(resolve, 1200));
+
+  console.log("After 1200ms (should be undefined):", cache.get("test-key"));
 }
