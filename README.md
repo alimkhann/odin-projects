@@ -22,8 +22,9 @@ Projects and exercises from The Odin Project course.
 | --- | --- | --- | --- |
 | `js-fullstack/javascript/library` | Book library UI | [Library README](js-fullstack/javascript/library/README.md) | [Live site](https://alimkhann.github.io/odin-projects/library) |
 | `js-fullstack/javascript/tic-tac-toe` | Tic-tac-toe game | [Tic Tac Toe README](js-fullstack/javascript/tic-tac-toe/README.md) | [Live site](https://alimkhann.github.io/odin-projects/tic-tac-toe) |
-| `js-fullstack/javascript/todo-list` | Task manager (Odin Tasks) | [Todo List README](js-fullstack/javascript/todo-list/README.md) | [Live site](https://alimkhann.github.io/odin-projects/todo-list) |
 | `js-fullstack/javascript/restaurant-page` | Restaurant single-page site | [Restaurant Page README](js-fullstack/javascript/restaurant-page/README.md) | [Live site](https://alimkhann.github.io/odin-projects/restaurant-page) |
+| `js-fullstack/javascript/todo-list` | Task manager (Odin Tasks) | [Todo List README](js-fullstack/javascript/todo-list/README.md) | [Live site](https://alimkhann.github.io/odin-projects/todo-list) |
+| `js-fullstack/javascript/weather-appleish` | Apple Weather-inspired weather SPA (TypeScript + Vite) | [Weather Appleish README](js-fullstack/javascript/weather-appleish/README.md) | [Live site](https://alimkhann.github.io/odin-projects/weather-appleish) |
 | `js-fullstack/javascript/webpack-practice` | Webpack practice setup | [Webpack Practice README](js-fullstack/javascript/webpack-practice/README.md) | — |
 
 ## Exercises
