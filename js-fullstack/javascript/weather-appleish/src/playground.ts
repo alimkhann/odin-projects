@@ -1,4 +1,4 @@
-import { searchLocations } from "./services/geocoding.ts";
+import { searchLocations } from "./services/geocodingService.ts";
 
 export async function runPlayground() {
   try {

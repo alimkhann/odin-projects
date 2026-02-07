@@ -1,7 +1,7 @@
 import { searchLocations as searchLocationsApi } from "../api/openMeteoGeocoding.ts";
 import type { Location } from "../domain/weather.ts";
 import { mapGeocodingResultToLocation } from "../mappers/geocodingMapper.ts";
-import { TtlCache } from "./cache.ts";
+import { TtlCache } from "./cacheService.ts";
 
 const SEARCH_TTL_MS = 5 * 60 * 1000;
 const memCache = new TtlCache<Location[]>();

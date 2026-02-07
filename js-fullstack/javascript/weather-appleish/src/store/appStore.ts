@@ -1,4 +1,4 @@
-import { loadPreferences } from "../services/preferences.ts";
+import { loadPreferences } from "../services/preferencesService.ts";
 import { createStore } from "./createStore.ts";
 import type { AppState } from "./state.ts";
 

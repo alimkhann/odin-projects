@@ -2,7 +2,7 @@ import { fetchForecast } from "../api/openMeteoForecast.ts";
 import type { Forecast, Location, Units } from "../domain/weather.ts";
 import { mapOpenMeteoForecast } from "../mappers/openMeteoMapper.ts";
 import { forecastKey } from "../store/state.ts";
-import { TtlCache } from "./cache.ts";
+import { TtlCache } from "./cacheService.ts";
 
 const FORECAST_TTL_MS = 1000 * 60 * 10;
 
