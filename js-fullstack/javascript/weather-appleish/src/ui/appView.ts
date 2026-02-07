@@ -22,6 +22,7 @@ import {
   createAreaChart,
   destroyAllCharts,
 } from "./charts.ts";
+import Sortable from "sortablejs";
 
 /* ── Public types ─────────────────────────────────────── */
 
@@ -31,6 +32,7 @@ export type AppActions = {
   onSaveLocation: (id: number) => void;
   onToggleSaved: (id: number) => void;
   onRemoveLocation: (id: number) => void;
+  onReorderLocations: (orderedIds: number[]) => void;
   onSetUnits: (units: Units) => void;
   onToggleSidebar: () => void;
   onToggleTheme: () => void;
@@ -407,6 +409,7 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
   /* ── State tracking ─────────────────────────────────── */
   let lastState: AppState | null = null;
   let lastSidebarHtml = "";
+  let sortableInstance: Sortable | null = null;
 
   /* ── Render helpers ─────────────────────────────────── */
 
@@ -1193,6 +1196,39 @@ export function mountApp(root: HTMLElement, actions: AppActions): AppView {
     if (nextSidebarHtml !== lastSidebarHtml) {
       sidebarList.innerHTML = nextSidebarHtml;
       lastSidebarHtml = nextSidebarHtml;
+
+      // (Re)initialize Sortable for saved-locations mode
+      if (sortableInstance) {
+        sortableInstance.destroy();
+        sortableInstance = null;
+      }
+      if (!isSearchMode && savedLocs.length > 1) {
+        sortableInstance = Sortable.create(sidebarList, {
+          animation: 150,
+          delay: 150,
+          delayOnTouchOnly: true,
+          draggable: ".sidebar-item",
+          ghostClass: "sidebar-item--ghost",
+          chosenClass: "sidebar-item--chosen",
+          dragClass: "sidebar-item--drag",
+          filter: ".sidebar-item__delete",
+          preventOnFilter: false,
+          onEnd(evt) {
+            if (
+              evt.oldIndex == null ||
+              evt.newIndex == null ||
+              evt.oldIndex === evt.newIndex
+            )
+              return;
+            const items =
+              sidebarList.querySelectorAll<HTMLElement>("[data-loc-id]");
+            const orderedIds = Array.from(items).map((el) =>
+              Number(el.dataset.locId),
+            );
+            actions.onReorderLocations(orderedIds);
+          },
+        });
+      }
     }
 
     /* ── Main content ───────────────────────────────── */

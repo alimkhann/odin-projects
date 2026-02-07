@@ -450,6 +450,19 @@ body {
   color: #fff;
 }
 
+.sidebar-item--ghost {
+  opacity: 0.4;
+}
+
+.sidebar-item--chosen {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  z-index: 10;
+}
+
+.sidebar-item--drag {
+  opacity: 0;
+}
+
 /* ========================================================
    Main content
    ======================================================== */

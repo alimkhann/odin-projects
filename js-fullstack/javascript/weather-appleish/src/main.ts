@@ -28,6 +28,7 @@ const view = mountApp(rootElement, {
 
   onToggleSaved: (id) => forecast.toggleSavedLocation(id),
   onRemoveLocation: (id) => forecast.removeLocation(id),
+  onReorderLocations: (ids) => forecast.reorderLocations(ids),
   onSetUnits: (units) => forecast.setUnits(units),
 
   onToggleSidebar: () => {

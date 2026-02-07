@@ -249,6 +249,20 @@ export function createForecastController(store: Store) {
     setUnits,
     toggleSavedLocation,
     removeLocation,
+    reorderLocations(orderedIds: number[]) {
+      console.log("[forecastController] Reorder locations:", orderedIds);
+      store.setState((state) => {
+        const next = {
+          ...state,
+          prefs: {
+            ...state.prefs,
+            savedLocationIds: orderedIds,
+          },
+        };
+        persistPreferences(next.prefs, next.entities.locationsById);
+        return next;
+      });
+    },
     persistPreferences() {
       const state = store.getState();
       persistPreferences(state.prefs, state.entities.locationsById);
