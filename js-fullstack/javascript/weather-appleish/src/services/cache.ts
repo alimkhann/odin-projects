@@ -1,6 +1,6 @@
-type CacheEntry<T> = { value: T; expiresAt: number };
+export type CacheEntry<T> = { value: T; expiresAt: number };
 
-class TtlCache<T> {
+export class TtlCache<T> {
   private cache: Map<string, CacheEntry<T>> = new Map();
 
   get(key: string): T | undefined {
@@ -18,6 +18,9 @@ class TtlCache<T> {
   }
 
   set(key: string, value: T, ttlMs: number): void {
+    if (ttlMs <= 0) {
+      throw new Error('TTL must be greater than 0');
+    }
     const expiresAt = Date.now() + ttlMs;
     this.cache.set(key, { value, expiresAt });
   }
@@ -29,6 +32,22 @@ class TtlCache<T> {
   clear(): void {
     this.cache.clear();
   }
-}
 
-export { TtlCache, type CacheEntry };
+  has(key: string): boolean {
+    const entry = this.cache.get(key);
+    if (!entry) {
+      return false;
+    }
+
+    if (Date.now() > entry.expiresAt) {
+      this.cache.delete(key);
+      return false;
+    }
+
+    return true;
+  }
+
+  size(): number {
+    return this.cache.size;
+  }
+}

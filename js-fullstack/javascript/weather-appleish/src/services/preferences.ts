@@ -25,7 +25,7 @@ export function loadPreferences(): Preferences {
     return {
       units: parsed.units === "imperial" ? "imperial" : "metric",
       savedLocationIds: Array.isArray(parsed.savedLocationIds)
-        ? parsed.savedLocationIds
+        ? parsed.savedLocationIds.filter((x: unknown) => typeof x === "number")
         : [],
       selectedLocationId:
         typeof parsed.selectedLocationId === "number"
