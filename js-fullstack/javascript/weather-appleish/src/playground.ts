@@ -8,38 +8,38 @@ export async function runPlayground() {
     localStorage.clear();
     console.log("Cleared localStorage\n");
 
-    // Get a test location
-    const results = await searchLocations("London");
-    const first = results[0];
-    if (!first) {
-      console.error("No location found");
-      return;
+    console.log("\n=== AbortController Test ===");
+
+    const resultsA = await searchLocations("London");
+    const locA = mapGeocodingResultToLocation(resultsA[0]);
+
+    const resultsB = await searchLocations("Paris");
+    const locB = mapGeocodingResultToLocation(resultsB[0]);
+
+    let controller: AbortController | null = null;
+
+    async function requestForecast(label: string, location: typeof locA) {
+      controller?.abort(); // cancel previous request
+      controller = new AbortController(); // new request token
+
+      try {
+        console.log(`[${label}] start`);
+        const fc = await getForecast(location, "metric", {
+          signal: controller.signal,
+        });
+        console.log(`[${label}] done`, location.name, fc.current.temp);
+      } catch (err) {
+        if (err instanceof DOMException && err.name === "AbortError") {
+          console.log(`[${label}] aborted`);
+          return;
+        }
+        console.error(`[${label}] failed`, err);
+      }
     }
 
-    const location = mapGeocodingResultToLocation(first);
-
-    console.log("=== Cache Test (3s TTL) ===");
-    console.log("Location:", location.name);
-
-    // First call → should fetch (check Network tab)
-    console.log("\n1️⃣ First call (should fetch):");
-    const forecast1 = await getForecast(location, "metric");
-    console.log("Got forecast, temp:", forecast1.current.temp);
-
-    // Second call immediately → should use mem cache (no network request)
-    console.log("\n2️⃣ Second call immediately (mem cache):");
-    const forecast2 = await getForecast(location, "metric");
-    console.log("Got forecast, temp:", forecast2.current.temp);
-
-    // Wait 3.5 seconds → should expire, fetch again
-    console.log("\n3️⃣ Waiting 3.5 seconds for cache to expire...");
-    await new Promise((resolve) => setTimeout(resolve, 3500));
-
-    console.log("Calling again (should fetch):");
-    const forecast3 = await getForecast(location, "metric");
-    console.log("Got forecast, temp:", forecast3.current.temp);
-
-    console.log("\n✅ Check Network tab to see request patterns!");
+    // Fire two requests quickly:
+    requestForecast("A", locA);
+    setTimeout(() => requestForecast("B", locB), 50);
   } catch (err) {
     console.error("Error:", err);
   }
