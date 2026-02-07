@@ -1,4 +1,4 @@
-export type Units = "metric" | "imperial";
+import type { Units } from "../domain/weather.ts";
 
 export async function fetchForecast(
   lat: number,
