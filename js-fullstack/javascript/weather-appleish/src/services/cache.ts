@@ -19,7 +19,7 @@ export class TtlCache<T> {
 
   set(key: string, value: T, ttlMs: number): void {
     if (ttlMs <= 0) {
-      throw new Error('TTL must be greater than 0');
+      throw new Error("TTL must be greater than 0");
     }
     const expiresAt = Date.now() + ttlMs;
     this.cache.set(key, { value, expiresAt });
