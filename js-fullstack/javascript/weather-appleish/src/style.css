@@ -1297,9 +1297,18 @@ body {
   }
 
   /* Hide desktop controls */
-  .sidebar-toggle,
-  .add-location-btn {
+  .sidebar-toggle {
     display: none;
+  }
+
+  /* Add-location button — top-right on list page, left of theme toggle */
+  .app-layout .add-location-btn.visible {
+    display: flex;
+    position: fixed;
+    top: 12px;
+    right: 56px;
+    left: auto;
+    z-index: 40;
   }
 
   /* Theme toggle top-right on list page */
