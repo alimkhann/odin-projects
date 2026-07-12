@@ -1,0 +1,395 @@
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--color-bg-surface);
+  border-right: 1px solid var(--color-border-default);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* Header / Logo */
+.sidebar-header {
+  padding-top: var(--spacing-lg);
+  padding-left: var(--spacing-xl);
+  padding-right: var(--spacing-xl);
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.sidebar-logo__icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) saturate(100%) invert(46%) sepia(95%) saturate(2479%)
+    hue-rotate(201deg) brightness(99%) contrast(101%);
+}
+
+.sidebar-logo__text {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: var(--line-height-tight);
+}
+
+/* Sections */
+.sidebar-section {
+  padding: var(--spacing-lg) var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.sidebar-section--projects {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebar-section__title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+  padding: 0 var(--spacing-md);
+}
+
+/* Smart Views Container */
+.sidebar-views {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+/* Sidebar Item (Common for views and projects) */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  user-select: none;
+}
+
+.sidebar-item:hover {
+  background: var(--color-bg-hover);
+}
+
+.sidebar-item--active:hover {
+  background: var(--color-bg-active);
+}
+
+.sidebar-item--active {
+  background: var(--color-bg-active);
+}
+
+.sidebar-item--active .sidebar-item__text {
+  color: var(--color-primary-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.sidebar-item--active .sidebar-item__count {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+/* Drag and drop feedback */
+.sidebar-item--drag-over {
+  background: var(--color-bg-hover) !important;
+  box-shadow: inset 0 0 0 2px var(--color-primary);
+  opacity: 0.8;
+}
+
+.sidebar-item__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.sidebar-item--active .sidebar-item__icon {
+  opacity: 1;
+  filter: brightness(0) saturate(100%) invert(46%) sepia(95%) saturate(2479%)
+    hue-rotate(201deg) brightness(99%) contrast(101%);
+}
+
+/* Invert icons in dark theme */
+[data-theme="dark"] .sidebar-item__icon {
+  filter: invert(1);
+}
+
+[data-theme="dark"] .sidebar-item--active .sidebar-item__icon {
+  filter: invert(1) brightness(0) saturate(100%) invert(46%) sepia(95%)
+    saturate(2479%) hue-rotate(201deg) brightness(99%) contrast(101%);
+}
+
+.sidebar-item__text {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-item__count {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-hover);
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--radius-full);
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Projects Header */
+.sidebar-projects-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.sidebar-add-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast);
+}
+
+.sidebar-add-btn:hover {
+  background: var(--color-bg-hover);
+}
+
+.sidebar-add-btn__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Invert plus icon on dark theme */
+[data-theme="dark"] .sidebar-add-btn__icon {
+  filter: invert(1);
+}
+
+/* Projects List */
+.sidebar-projects {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.sidebar-empty {
+  padding: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Footer / Settings */
+.sidebar-footer {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.sidebar-settings-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.sidebar-settings-btn:hover {
+  background: var(--color-bg-hover);
+}
+
+.sidebar-settings-btn__icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Invert settings icon in dark theme */
+[data-theme="dark"] .sidebar-settings-btn__icon {
+  filter: invert(1);
+}
+
+.sidebar-settings-btn__text {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+/* Project Row (with menu button) */
+.project-row {
+  position: relative;
+}
+
+.project-row .sidebar-item {
+  position: relative;
+  padding-right: 36px;
+}
+
+.project-row .sidebar-item__count {
+  position: absolute;
+  right: 12px;
+  transition:
+    transform var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+/* Project Menu Button */
+.project-menu {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.project-menu-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition:
+    opacity var(--transition-fast),
+    background-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.project-row:hover .project-menu-btn {
+  opacity: 1;
+}
+
+.project-row:hover .sidebar-item__count {
+  transform: translateX(-24px);
+}
+
+.project-menu-btn:hover {
+  background: var(--color-bg-hover);
+}
+
+.project-menu-btn img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+}
+
+[data-theme="dark"] .project-menu-btn img {
+  filter: invert(1);
+}
+
+.project-menu-btn:hover img {
+  opacity: 1;
+}
+
+.project-menu-btn.is-open img {
+  opacity: 1;
+}
+
+[data-theme="dark"] .project-menu-btn.is-open img {
+  filter: invert(1);
+}
+
+/* Project Menu Dropdown */
+.project-menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  min-width: 120px;
+  display: none;
+  flex-direction: column;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-top: var(--spacing-xs);
+}
+
+.project-menu-dropdown.open {
+  display: flex;
+}
+
+.project-menu-item {
+  width: 100%;
+  text-align: left;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  font-weight: var(--font-weight-medium);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.project-menu-item:first-child {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.project-menu-item:last-child {
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.project-menu-item:hover {
+  background: var(--color-bg-hover);
+}
+
+.project-menu-item--danger {
+  color: var(--color-danger, #ef4444);
+}
+
+.project-menu-item--danger .project-menu-item__icon {
+  filter: invert(41%) sepia(80%) saturate(4880%) hue-rotate(350deg)
+    brightness(94%) contrast(96%);
+}
+
+.project-menu-item--danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.project-menu-item__icon {
+  width: 14px;
+  height: 14px;
+  opacity: 0.8;
+}
+
+[data-theme="dark"] .project-menu-item__icon {
+  filter: invert(1);
+}
+
+[data-theme="dark"] .project-menu-item--danger .project-menu-item__icon {
+  filter: invert(41%) sepia(80%) saturate(4880%) hue-rotate(350deg)
+    brightness(94%) contrast(96%);
+}

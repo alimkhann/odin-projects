@@ -1,0 +1,36 @@
+/* Filter buttons group */
+.filter-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-surface);
+  overflow: hidden;
+}
+
+.filter-buttons .btn--secondary {
+  border: none;
+  border-right: 1px solid var(--color-border-default);
+  border-radius: 0;
+  background: transparent;
+}
+
+.filter-buttons .btn--secondary:last-child {
+  border-right: none;
+}
+
+.filter-buttons .btn--secondary:hover {
+  background: var(--color-bg-hover);
+}
+
+.filter-buttons .btn--active {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.filter-buttons .btn--active .btn__icon {
+  filter: brightness(0) saturate(100%) invert(27%) sepia(91%) saturate(1232%)
+    hue-rotate(201deg) brightness(102%) contrast(97%);
+}

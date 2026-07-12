@@ -1,0 +1,33 @@
+#root,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  background: var(--color-bg-app);
+}
+
+/* Main Layout Grid */
+#sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+}
+
+#main {
+  flex: 1;
+  min-width: 0;
+}
+
+#details {
+  width: var(--details-panel-width);
+  flex-shrink: 0;
+  display: none; /* Hidden by default, shown when task selected */
+}
+
+#details.show {
+  display: block;
+}
